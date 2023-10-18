@@ -7,12 +7,14 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from urllib.parse import urlparse
 
+import os
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective, SphinxTranslator
+from sphinx.util.osutil import copyfile
 
 __author__ = "Raphael Massabot & Tony Hirst"
 __version__ = "0.0.1"
@@ -91,7 +93,6 @@ class Audio(SphinxDirective):
     def run(self) -> List[ou_audio]:
         """Return the audio node based on the set options."""
         env: BuildEnvironment = self.env
-
         # check options that need to be specific values
         preload: str = self.options.get("preload", "auto")
         valid_preload = ["auto", "metadata", "none"]
@@ -103,6 +104,11 @@ class Audio(SphinxDirective):
 
         # add the audio files as images in the builder
         _src = get_audio(self.arguments[0], env)
+        #Copy the media asset over to the build directory
+        # _src[0] is the filename; _src[1] the mime type
+        outpath = os.path.join(env.app.builder.outdir,_src[0])
+        os.makedirs(os.path.dirname(outpath), exist_ok=True)
+        copyfile(_src[0], outpath)
         _ou_audio = ou_audio(
                 src=_src[0],
                 autoplay="autoplay" in self.options,
@@ -155,7 +161,7 @@ def visit_ou_audio_unsupported(translator: SphinxTranslator, node: ou_audio) -> 
 
 def setup(app: Sphinx) -> Dict[str, bool]:
     """Add audio node and parameters to the Sphinx builder."""
-    app.add_config_value("audio_enforce_extra_source", False, "html")
+    #app.add_config_value("audio_enforce_extra_source", False, "html")
     app.add_node(
         ou_audio,
         html=(visit_ou_audio_html, depart_ou_audio_html),
