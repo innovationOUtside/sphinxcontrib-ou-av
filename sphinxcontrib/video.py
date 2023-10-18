@@ -1,6 +1,6 @@
-"""Audio extension to embed audio in html sphinx output.
+"""Video extension to embed video in html sphinx output.
 
-Originally based on https://github.com/sphinx-contrib/video/
+Derived from audio.py in this extrension
 """
 
 from pathlib import Path
@@ -17,45 +17,42 @@ from sphinx.util.docutils import SphinxDirective, SphinxTranslator
 from sphinx.util.osutil import copyfile
 
 __author__ = "Raphael Massabot & Tony Hirst"
-__version__ = "0.0.2"
+__version__ = "0.0.1"
 
 logger = logging.getLogger(__name__)
 
 SUPPORTED_MIME_TYPES: Dict[str, str] = {
-    ".mp3": "audio/mpeg",
-    #".wav": "audio/wav",
-    #".weba": "audio/webm",
+    ".mp4": "video/mp4",
+    #".webm": "video/webm",
 }
 "Supported mime types of the link tag"
 
 SUPPORTED_OPTIONS: List[str] = [
+    "src",
     "autoplay",
     "controls",
+    "height",
     "loop",
     "muted",
+    "poster",
     "preload",
-    "src",
+    "width",
 ]
 "List of the supported options attributes"
 
 
-def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
-    """Return audio and suffix.
+def get_video(src: str, env: BuildEnvironment) -> Tuple[str, str]:
+    """Return video and suffix.
 
     Raise a warning if not supported but do not stop the computation.
 
     Args:
-        src: The source of the audio file (can be local or url)
+        src: The source of the video file (can be local or url)
         env: the build environment
 
     Returns:
         the src file, the extention suffix
     """
-
-    # TH: what does this do??
-    # Does this take a copy of the file so it can then be passed to the build directory?
-    #if not bool(urlparse(src).netloc):
-    #    env.images.add_file("", src)
 
     suffix = Path(src).suffix
     if suffix not in SUPPORTED_MIME_TYPES:
@@ -67,32 +64,35 @@ def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
     return (src, type)
 
 
-class ou_audio(nodes.General, nodes.Element):
-    """Audio node."""
+class ou_video(nodes.General, nodes.Element):
+    """Video node."""
     pass
 
 
-class Audio(SphinxDirective):
-    """Audio directive.
+class Video(SphinxDirective):
+    """Video directive.
 
-    Wrapper for the html <audio> tag embeding all the supported options
+    Wrapper for the html <video> tag embeding all the supported options
     """
 
     has_content: bool = True
     required_arguments: int = 1
     optional_arguments: int = 1
     option_spec: Dict[str, Any] = {
+        "alt": directives.unchanged,
         "autoplay": directives.flag,
         "nocontrols": directives.flag,
+        "height": directives.unchanged,
         "loop": directives.flag,
         "muted": directives.flag,
+        "poster": directives.unchanged,
         "preload": directives.unchanged,
+        "width": directives.unchanged,
         "class": directives.unchanged,
-        "src": directives.unchanged,
     }
 
-    def run(self) -> List[ou_audio]:
-        """Return the audio node based on the set options."""
+    def run(self) -> List[ou_video]:
+        """Return the video node based on the set options."""
         env: BuildEnvironment = self.env
         # check options that need to be specific values
         preload: str = self.options.get("preload", "auto")
@@ -104,21 +104,25 @@ class Audio(SphinxDirective):
             preload = "auto"
 
         # Get the asset location
-        _src = get_audio(self.arguments[0], env)
+        _src = get_video(self.arguments[0], env)
         #Copy the media asset over to the build directory
         # _src[0] is the filename; _src[1] the mime type
         if not bool(urlparse(_src[0]).netloc):
             outpath = os.path.join(env.app.builder.outdir,_src[0])
             os.makedirs(os.path.dirname(outpath), exist_ok=True)
             copyfile(_src[0], outpath)
-        _ou_audio = ou_audio(
+        _ou_video = ou_video(
                 src=_src[0],
+                alt=self.options.get("alt", ""),
                 autoplay="autoplay" in self.options,
                 controls="nocontrols" not in self.options,
                 loop="loop" in self.options,
                 muted="muted" in self.options,
+                poster=self.options.get("poster", ""),
                 preload=preload,
                 klass=self.options.get("class", ""),
+                height=self.options.get("height", ""),
+                width=self.options.get("width","")
             )
         # THe following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
@@ -130,50 +134,48 @@ class Audio(SphinxDirective):
                 caption = nodes.caption(first_node.rawsource, "", *first_node.children)
                 caption.source = first_node.source
                 caption.line = first_node.line
-                _ou_audio += caption
+                _ou_video += caption
         return [
-            _ou_audio
+            _ou_video
         ]
 
 
-def visit_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
-    """Entry point of the html audio node."""
-    # start the audio block
+def visit_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
+    """Entry point of the html video node."""
+    # start the video block
     attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if node[k]]
-    if node["klass"]:  # klass need to be special cased
-        attr += [f"class=\"{node['klass']}\""]
-    html: str = f"<audio {' '.join(attr)}/>"
+    html: str = f"<video {' '.join(attr)}/>"
 
     translator.body.append(html)
 
 
-def depart_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
-    """Exit of the html audio node."""
+def depart_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
+    """Exit of the html video node."""
     pass
     #translator.body.append("")
 
 
-def visit_ou_audio_unsupported(translator: SphinxTranslator, node: ou_audio) -> None:
-    """Entry point of the ignored audio node."""
+def visit_ou_video_unsupported(translator: SphinxTranslator, node: ou_video) -> None:
+    """Entry point of the ignored video node."""
     logger.warning(
-        f"audio {node['src']}: unsupported output format (node skipped)"
+        f"video {node['src']}: unsupported output format (node skipped)"
     )
     raise nodes.SkipNode
 
 
 def setup(app: Sphinx) -> Dict[str, bool]:
-    """Add audio node and parameters to the Sphinx builder."""
-    #app.add_config_value("audio_enforce_extra_source", False, "html")
+    """Add video node and parameters to the Sphinx builder."""
+    #app.add_config_value("video_enforce_extra_source", False, "html")
     app.add_node(
-        ou_audio,
-        html=(visit_ou_audio_html, depart_ou_audio_html),
-        epub=(visit_ou_audio_unsupported, None),
-        latex=(visit_ou_audio_unsupported, None),
-        man=(visit_ou_audio_unsupported, None),
-        texinfo=(visit_ou_audio_unsupported, None),
-        text=(visit_ou_audio_unsupported, None),
+        ou_video,
+        html=(visit_ou_video_html, depart_ou_video_html),
+        epub=(visit_ou_video_unsupported, None),
+        latex=(visit_ou_video_unsupported, None),
+        man=(visit_ou_video_unsupported, None),
+        texinfo=(visit_ou_video_unsupported, None),
+        text=(visit_ou_video_unsupported, None),
     )
-    app.add_directive("ou-audio", Audio)
+    app.add_directive("ou-video", Video)
 
     return {
         "parallel_read_safe": True,
