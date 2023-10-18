@@ -1,3 +1,10 @@
-# sphinxcontrib-ou-av
+# sphinxcontrib-ou-xml-tags
 
-Simple Sphinx extension to embed a media player (for use with OU-XML workflows).
+*Needs repo name change*
+
+Simple Sphinx extension to create Sphinx parseable markdown admonitions that can be used to render HTML components and Sphinx XML elements that render nicely to OU-XML:
+
+- `ou-audio`: simple tag for embedding audio
+- `ou-video`: simple tag for embedding video [TO DO]
+- `ou-html5`: simple tag for embedding html [TO DO]
+- `ou-activity`: simple [?]
