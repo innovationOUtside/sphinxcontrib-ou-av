@@ -109,7 +109,9 @@ class Audio(SphinxDirective):
         # _src[0] is the filename; _src[1] the mime type
         if not bool(urlparse(_src[0]).netloc):
             outpath = os.path.join(env.app.builder.outdir,_src[0])
-            os.makedirs(os.path.dirname(outpath), exist_ok=True)
+            dirpath = os.path.dirname(outpath)
+            if dirpath:
+                os.makedirs(dirpath, exist_ok=True)
             copyfile(_src[0], outpath)
         _ou_audio = ou_audio(
                 src=_src[0],
