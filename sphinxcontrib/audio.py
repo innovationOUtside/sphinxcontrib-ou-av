@@ -144,15 +144,14 @@ def visit_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
     attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if node[k]]
     if node["klass"]:  # klass need to be special cased
         attr += [f"class=\"{node['klass']}\""]
-    html: str = f"<audio {' '.join(attr)}/>"
+    html: str = f"<audio {' '.join(attr)}>"
 
     translator.body.append(html)
 
 
 def depart_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
     """Exit of the html audio node."""
-    pass
-    #translator.body.append("")
+    translator.body.append("</audio>")
 
 
 def visit_ou_audio_unsupported(translator: SphinxTranslator, node: ou_audio) -> None:

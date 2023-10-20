@@ -146,15 +146,14 @@ def visit_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
     """Entry point of the html video node."""
     # start the video block
     attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if node[k]]
-    html: str = f"<video {' '.join(attr)}/>"
+    html: str = f"<video {' '.join(attr)}>"
 
     translator.body.append(html)
 
 
 def depart_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
     """Exit of the html video node."""
-    pass
-    #translator.body.append("")
+    translator.body.append("</video>")
 
 
 def visit_ou_video_unsupported(translator: SphinxTranslator, node: ou_video) -> None:
