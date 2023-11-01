@@ -137,6 +137,8 @@ class Video(SphinxDirective):
                 caption.source = first_node.source
                 caption.line = first_node.line
                 _ou_video += caption
+            if len(node) > 1:
+                _ou_video += nodes.description("", *node[1:])
         return [
             _ou_video
         ]

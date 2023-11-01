@@ -8,3 +8,11 @@ Simple Sphinx extension to create Sphinx parseable markdown admonitions that can
 - `ou-video`: simple tag for embedding video [TO DO]
 - `ou-html5`: simple tag for embedding html [TO DO]
 - `ou-activity`: simple [?]
+
+## BUILD and INSTALL
+
+`python3 -m build`
+
+Install as:
+
+`python3 -m pip install .`

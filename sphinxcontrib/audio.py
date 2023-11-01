@@ -133,6 +133,8 @@ class Audio(SphinxDirective):
                 caption.source = first_node.source
                 caption.line = first_node.line
                 _ou_audio += caption
+            if len(node) > 1:
+                _ou_audio += nodes.description("", *node[1:])
         return [
             _ou_audio
         ]
