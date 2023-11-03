@@ -24,7 +24,6 @@ logger = logging.getLogger(__name__)
 SUPPORTED_MIME_TYPES: Dict[str, str] = {
     ".html": "text/html",
     ".zip": "application/zip",
-    #".weba": "html5/webm",
 }
 "Supported mime types of the link tag"
 
@@ -46,7 +45,7 @@ def get_html5(src: str, env: BuildEnvironment) -> Tuple[str, str]:
         env: the build environment
 
     Returns:
-        the src file, the extention suffix
+        the src file, the extension suffix
     """
 
     # TH: what does this do??

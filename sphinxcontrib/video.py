@@ -51,7 +51,7 @@ def get_video(src: str, env: BuildEnvironment) -> Tuple[str, str]:
         env: the build environment
 
     Returns:
-        the src file, the extention suffix
+        the src file, the extension suffix
     """
 
     suffix = Path(src).suffix
