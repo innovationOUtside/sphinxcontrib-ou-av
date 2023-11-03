@@ -123,17 +123,19 @@ class html5(SphinxDirective):
 
 
 def visit_ou_html5_html(translator: SphinxTranslator, node: ou_html5) -> None:
-    """Entry point of the html html5 node."""
+    """Entry point of the html iframe node."""
     # start the html5 block
-    attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if node[k]]
-    html: str = f"<html5 {' '.join(attr)}>"
+    # TO DO - if we just have a single html file,
+    # or HTML text in the admonition, we could just srcdoc it?
+    attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if k in node and node[k]]
+    html: str = f"<iframe {' '.join(attr)}>"
 
     translator.body.append(html)
 
 
 def depart_ou_html5_html(translator: SphinxTranslator, node: ou_html5) -> None:
-    """Exit of the html html5 node."""
-    translator.body.append("</html5>")
+    """Exit of the html iframe node."""
+    translator.body.append("</iframe>")
 
 
 def visit_ou_html5_unsupported(translator: SphinxTranslator, node: ou_html5) -> None:

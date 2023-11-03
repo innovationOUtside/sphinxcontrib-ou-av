@@ -84,7 +84,9 @@ class mol3d(SphinxDirective):
                 width=self.options.get("width", ""),
                 src = tmp_path,
             )
-        # THe following is cribbed from Jupyter Book and adds a caption etc
+        # TO DO - we need to define a <mol3d> tag handler for HTML
+        # TO DO - or tweak this handler to render to everday HTML tags
+        # The following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
         if self.content:
             node = nodes.Element()  # anonymous container for parsing
@@ -105,15 +107,16 @@ class mol3d(SphinxDirective):
 def visit_ou_mol3d_html(translator: SphinxTranslator, node: ou_mol3d) -> None:
     """Entry point of the html mol3d node."""
     # start the mol3d block
-    attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if node[k]]
-    html: str = f"<mol3d {' '.join(attr)}>"
+    # TO DO - fix need for path hack
+    attr: List[str] = [f'{k}="{node[k].replace("_tmp/","")}"' for k in SUPPORTED_OPTIONS if k in node and node[k]]
+    html: str = f"<iframe {' '.join(attr)}>"
 
     translator.body.append(html)
 
 
 def depart_ou_mol3d_html(translator: SphinxTranslator, node: ou_mol3d) -> None:
     """Exit of the html mol3d node."""
-    translator.body.append("</mol3d>")
+    translator.body.append("</iframe>")
 
 
 def visit_ou_mol3d_unsupported(translator: SphinxTranslator, node: ou_mol3d) -> None:
