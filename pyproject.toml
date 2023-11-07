@@ -34,6 +34,8 @@ text = "Apache Software License"
 repository = "https://github.com/innovationOUtside/sphinxcontrib-ou-av"
 
 [tool.setuptools]
-include-package-data = false
 license-files = ["LICENSE"]
-packages = ["sphinxcontrib"]
+packages = ["sphinxcontrib", "sphinxcontrib_ou_media"]
+
+[tool.setuptools.package-data]
+sphinxcontrib_ou_media = ["assets/**"]
