@@ -3,6 +3,8 @@
 Originally based on https://github.com/sphinx-contrib/video/
 """
 
+# TO DO - HTML outputs for exercise and activity
+
 from typing import Any, Dict, List
 
 from docutils import nodes
@@ -52,7 +54,7 @@ class answer(CustomInternalDirective):
 
 
 class CustomTopDirective(SphinxDirective):
-    """Generic top level acitvity/exercise directive.
+    """Generic top level activity/exercise directive.
 
     Wrapper for the <exercise> tag embedding all the supported options
     """
@@ -68,10 +70,11 @@ class CustomTopDirective(SphinxDirective):
     def run(self):
         component_name = self.component_name
         activity = create_component(component_name, rawtext=self.content)
+        heading = " ".join(self.arguments)
         activity += create_component(
             "ou-title",
-            rawtext=self.arguments[0],
-            children=[nodes.Text(self.arguments[0], self.arguments[0])],
+            rawtext=heading,
+            children=[nodes.Text(heading, heading)],
         )
         timing = self.options.get("timing", None)
         if timing:
