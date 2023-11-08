@@ -35,110 +35,15 @@ SUPPORTED_OPTIONS: List[str] = [
 ]
 "List of the supported options attributes"
 
-CODE_TEMPLATE = fetch_template("assets", "html-zip-resources", "templates", "ou-code-index.html")
+CODE_TEMPLATE = fetch_template(
+    "assets", "html-zip-resources", "templates", "ou-code-index.html"
+)
 
 # Example: https://executablebooks.github.io/thebe/
 # Cribbed from: https://github.com/stevejpurves/lite-quickstart-example/tree/gh-pages
-JUPYTERLITE_TEMPLATE = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lite Quickstart Example</title>
-  <script type="text/x-thebe-config">
-    {{
-    useBinder: false,
-    useJupyterLite: true,
-    mountActivateWidget: true,
-    mountStatusWidget: true,
-    selector: "pre" 
-    }}
-  </script>
-  <script id="jupyter-config-data" type="application/json">
-    {{
-      "litePluginSettings": {{
-        "@jupyterlite/pyodide-kernel-extension:kernel": {{
-          "pipliteUrls": ["https://unpkg.com/@jupyterlite/pyodide-kernel@0.0.7/pypi/all.json"],
-          "pipliteWheelUrl": "https://unpkg.com/@jupyterlite/pyodide-kernel@0.0.7/pypi/piplite-0.0.7-py3-none-any.whl"
-        }}
-      }},
-      "enableMemoryStorage": true,
-      "settingsStorageDrivers": ["memoryStorageDriver"]
-    }}
-  </script>
-  <script
-    type="text/javascript"
-    src="thebe-lite.min.js"
-  ></script>
-  <script type="text/javascript" src="index.js"></script>
-  <script type="text/javascript">
-
-    /**
-     CRIBBED FROM vleapi.1.js in cl_codesnippet_v1.0 via https://learn2.open.ac.uk/mod/oucontent/view.php?id=2235581
-
-     * Dynamically resizes the iframe that contains this activity so that it
-     * matches its content.
-     *
-     * The width will not be altered - only the height will be changed. It can
-     * become larger or smaller.
-     *
-     * If you want to use this facility you need to call this function every
-     * time you do something that might affect the size of the iframe.
-     */
-    function resize_iframe() {{
-        // Find iframe in parent window.
-        var iframes = window.top.document.getElementsByTagName('iframe');
-        var iframe = null;
-        for (var i = 0; i < iframes.length; i ++) {{
-            var poss = iframes[i];
-            var doc = poss.contentDocument || poss.contentWindow.document;
-            if (doc == document) {{
-                iframe = poss;
-                break;
-            }}
-        }}
-        // If we can't find it, put a message in the console and abort.
-        if (!iframe) {{
-            if (window.console) {{
-                console.log('VLE.resize_iframe: Unable to find parent iframe');
-            }}
-            return;
-        }}
-        // Calculate body height including margins.
-        var html = document.getElementsByTagName('html')[0];
-        var styles = getComputedStyle(html);
-        var totalHeight = parseFloat(styles['marginTop']) +
-               parseFloat(styles['marginBottom']) + html.offsetHeight;
-        // Set the height.
-        iframe.height = totalHeight;
-    }}
-
-    window.onload = function () {{
-        // This function will be called when the iframe's content has finished loading.
-        resize_iframe();
-    }};
-    </script>
-    <!-- Mutation watcher code via chatgpt -->
-    <script type="text/javascript">
-
-</script>
-  <style>
-    body {{ overflow: scroll }}
-  </style>
-  <link rel="stylesheet" href="https://unpkg.com/thebe@0.9.0-rc.7/lib/thebe.css" />
-</head>
-<body>
-    <button onclick="resize_iframe()">Resize</button>
-    <div class="thebe-activate"></div>
-    <div class="thebe-status"></div>
-    <div style="height: auto; max-width: 800px; padding: 8px">
-    <pre>{code}</pre>
-    </div>
-</body>
-</html>
-
-"""
+THEBE_LITE_TEMPLATE = fetch_template(
+    "assets", "html-zip-resources", "templates", "ou-thebe-lite-index.html"
+)
 
 
 # Via Chatgpt:
