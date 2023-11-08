@@ -31,6 +31,7 @@ SUPPORTED_OPTIONS: List[str] = [
     "height",
     "width",
     "src",
+    #TO DO - can we remove src? The src is the admonition title
 ]
 "List of the supported options attributes"
 
@@ -71,7 +72,7 @@ class ou_html5(nodes.General, nodes.Element):
 class html5(SphinxDirective):
     """html5 directive.
 
-    Wrapper for the html <html5> tag embeding all the supported options
+    Wrapper for the html <html5> tag embedding all the supported options
     """
 
     has_content: bool = True
@@ -104,7 +105,7 @@ class html5(SphinxDirective):
                 height=self.options.get("height", ""),
                 width=self.options.get("width",""),
             )
-        # THe following is cribbed from Jupyter Book and adds a caption etc
+        # The following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
         if self.content:
             node = nodes.Element()  # anonymous container for parsing
@@ -127,6 +128,7 @@ def visit_ou_html5_html(translator: SphinxTranslator, node: ou_html5) -> None:
     # start the html5 block
     # TO DO - if we just have a single html file,
     # or HTML text in the admonition, we could just srcdoc it?
+    # If HTML in body, then call as ```{ou-html5} INLINE
     attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if k in node and node[k]]
     html: str = f"<iframe {' '.join(attr)}>"
 

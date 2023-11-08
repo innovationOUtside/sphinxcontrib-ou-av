@@ -75,7 +75,7 @@ class ou_audio(nodes.General, nodes.Element):
 class Audio(SphinxDirective):
     """Audio directive.
 
-    Wrapper for the html <audio> tag embeding all the supported options
+    Wrapper for the html <audio> tag embedding all the supported options
     """
 
     has_content: bool = True

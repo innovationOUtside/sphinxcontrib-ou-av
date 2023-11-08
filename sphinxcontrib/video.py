@@ -72,7 +72,7 @@ class ou_video(nodes.General, nodes.Element):
 class Video(SphinxDirective):
     """Video directive.
 
-    Wrapper for the html <video> tag embeding all the supported options
+    Wrapper for the html <video> tag embedding all the supported options
     """
 
     has_content: bool = True

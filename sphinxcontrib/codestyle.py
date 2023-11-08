@@ -163,7 +163,7 @@ class ou_codestyle(nodes.General, nodes.Element):
 class codestyle(SphinxDirective):
     """codestyle directive.
 
-    Wrapper for the html <codestyle> tag embeding all the supported options
+    Wrapper for the html <codestyle> tag embedding all the supported options
     """
 
     has_content: bool = True
@@ -180,6 +180,7 @@ class codestyle(SphinxDirective):
     def run(self) -> List[ou_codestyle]:
         """Return the codestyle node based on the set options."""
         env: BuildEnvironment = self.env
+
         # check options that need to be specific values
         # TO DO?
 
@@ -205,7 +206,7 @@ class codestyle(SphinxDirective):
                 # TO DO  - we need to get the resources into the package
                 _src_zip = f"JL-{_src_root}.zip"
                 tmp_path = os.path.join("_tmp", _src_zip)
-                jl_dir_path = resources_path.joinpath(
+                jl_dir_path = resources_path().joinpath(
                     "assets", "html-zip-resources", "jupyterlite", "index.js"
                 ).parent
                 zip_directory(jl_dir_path, tmp_path)
