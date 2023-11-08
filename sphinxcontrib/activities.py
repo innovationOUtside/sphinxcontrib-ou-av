@@ -24,8 +24,8 @@ SUPPORTED_OPTIONS: List[str] = [
 "List of the supported options attributes"
 
 
-class discussion(SphinxDirective):
-    """The discussion directive is used to generate an activity block."""
+class CustomInternalDirective(SphinxDirective):
+    """Generic components..."""
 
     has_content = True
     required_arguments = 0
@@ -33,35 +33,26 @@ class discussion(SphinxDirective):
     final_argument_whitespace = True
 
     def run(self):
-        discussion = create_component(
-            "ou-discussion",
-            classes=["ou-discussion"],
+        component_name = self.component_name
+        component = create_component(
+            component_name,
+            classes=[component_name],
             rawtext=self.content,
         )
-        self.state.nested_parse(self.content, self.content_offset, discussion)
-        return [discussion]
+        self.state.nested_parse(self.content, self.content_offset, component)
+        return [component]
 
 
-class answer(SphinxDirective):
-    """The answer directive is used to generate an answer block."""
-
-    has_content = True
-    required_arguments = 0
-    optional_arguments = 0
-    final_argument_whitespace = True
-
-    def run(self):
-        answer = create_component(
-            "ou-answer",
-            classes=["ou-answer"],
-            rawtext=self.content,
-        )
-        self.state.nested_parse(self.content, self.content_offset, answer)
-        return [answer]
+class discussion(CustomInternalDirective):
+    component_name = "ou-discussion"
 
 
-class exercise(SphinxDirective):
-    """exercise directive.
+class answer(CustomInternalDirective):
+    component_name = "ou-answer"
+
+
+class CustomTopDirective(SphinxDirective):
+    """Generic top level acitvity/exercise directive.
 
     Wrapper for the <exercise> tag embedding all the supported options
     """
@@ -75,26 +66,36 @@ class exercise(SphinxDirective):
     final_argument_whitespace = True
 
     def run(self):
-        exercise = create_component("ou-exercise", rawtext=self.content)
-        exercise += create_component(
+        component_name = self.component_name
+        activity = create_component(component_name, rawtext=self.content)
+        activity += create_component(
             "ou-title",
             rawtext=self.arguments[0],
             children=[nodes.Text(self.arguments[0], self.arguments[0])],
         )
         timing = self.options.get("timing", None)
         if timing:
-            exercise += create_component(
+            activity += create_component(
                 "ou-time",
                 rawtext=timing,
                 children=[nodes.Text(timing, timing)],
             )
 
-        self.state.nested_parse(self.content, self.content_offset, exercise)
-        return [exercise]
+        self.state.nested_parse(self.content, self.content_offset, activity)
+        return [activity]
+
+
+class activity(CustomTopDirective):
+    component_name = "ou-activity"
+
+
+class exercise(CustomTopDirective):
+    component_name = "ou-exercise"
 
 
 def setup(app: Sphinx) -> Dict[str, bool]:
     """Add exercise node and parameters to the Sphinx builder."""
+    app.add_directive("ou-activity", activity)
     app.add_directive("ou-exercise", exercise)
     app.add_directive("ou-answer", answer)
     app.add_directive("ou-discussion", discussion)
