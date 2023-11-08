@@ -1,7 +1,7 @@
 import importlib.resources as resources
 
 
-def resources_path(path):
+def resources_path(path=None):
     """Get path to package resources."""
     path = path if path else "sphinxcontrib_ou_media"
     return resources.files(path)
