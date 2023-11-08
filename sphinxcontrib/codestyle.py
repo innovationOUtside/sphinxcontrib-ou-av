@@ -32,6 +32,8 @@ SUPPORTED_OPTIONS: List[str] = [
     "src",
     "caption",
     "type",
+    "viewer",
+    "theme",
 ]
 "List of the supported options attributes"
 
@@ -80,6 +82,8 @@ class codestyle(SphinxDirective):
         "height": directives.unchanged,
         "caption": directives.unchanged,
         "type": directives.unchanged,
+        "viewer": directives.unchanged,
+        "theme": directives.unchanged,
     }
 
     def run(self) -> List[ou_codestyle]:
@@ -98,6 +102,8 @@ class codestyle(SphinxDirective):
         _type = self.options.get("type", "code").lower()
         os.makedirs(env.app.builder.outdir, exist_ok=True)
         if _src and not bool(urlparse(_src).netloc):
+            # TO DO - should we use the codesnippet,
+            # and assume file is a code file to pass?
             outpath = os.path.join(env.app.builder.outdir, _src)
             copyfile(_src, outpath)
             # TO DO what if it is a url?
@@ -105,46 +111,61 @@ class codestyle(SphinxDirective):
             _src_root = f"{uuid.uuid4().hex}"
             os.makedirs("_tmp", exist_ok=True)
             if _type == "jupyterlite":
-                html = JUPYTERLITE_TEMPLATE.format(
+                html = THEBE_LITE_TEMPLATE.format(
                     lang=_lang, code="\n".join(self.content)
                 )
-                # TO DO  - we need to get the resources into the package
                 _src_zip = f"JL-{_src_root}.zip"
                 tmp_path = os.path.join("_tmp", _src_zip)
                 jl_dir_path = resources_path().joinpath(
-                    "assets", "html-zip-resources", "jupyterlite", "index.js"
-                ).parent
+                    "assets", "html-zip-resources", "jupyterlite"
+                )
                 zip_directory(jl_dir_path, tmp_path)
                 outpath = os.path.join(env.app.builder.outdir, _src_zip)
                 with zipfile.ZipFile(tmp_path, "a", zipfile.ZIP_DEFLATED) as zipf:
                     # Create a new file named 'index.html' and write the text to it
                     zipf.writestr("index.html", html)
                 # copyfile(tmp_path, outpath)
-                if not _height:
-                    # TO DO - have an optional line height param?
-                    _line_height = 15
-                    _height = _line_height * len(self.content) + 200
+                # if not _height:
+                #    # TO DO - have an optional line height param?
+                #    _line_height = 15
+                #    _height = _line_height * len(self.content) + 200
+                _ou_codestyle = ou_codestyle(
+                    src=tmp_path,
+                    height=_height,
+                    width=_width,
+                )
             else:
-                _src = f"{_src_root}.html"
+                _codesnippet = self.options.get("viewer", "th_hack").lower()=="codesnippet"
+                # Currently, theme and code only apply to codesnippet
+                _theme = self.options.get("theme", "light").lower()
+                if _codesnippet:
+                    content = "\n".join(self.content)
+                    _src = f"{_src_root}.txt"
+                else:
+                    content = CODE_TEMPLATE.format(
+                        lang=_lang, code="\n".join(self.content)
+                    )
+                    # This uses my crude take on codesnippet
+                    # May have a parameter to use codesnippet or this?
+                    _src = f"{_src_root}.html"
                 tmp_path = os.path.join("_tmp", _src)
-                # TO DO - would it be useful to add the code to a file in a
-                # zip file as well for simplifying archiving/reuse purposes?
-                html = CODE_TEMPLATE.format(lang=_lang, code="\n".join(self.content))
-                # view.write_html(tmp_path)
                 # Copy the media asset over to the build directory
                 outpath = os.path.join(env.app.builder.outdir, _src)
                 with open(tmp_path, "w") as f:
-                    f.write(html)
+                    f.write(content)
                 copyfile(tmp_path, outpath)
-                if not _height:
-                    # TO DO - have an optional line height param?
-                    _line_height = 15
-                    _height = _line_height * len(self.content)
-        _ou_codestyle = ou_codestyle(
-            src=tmp_path,
-            height=_height,
-            width=_width,
-        )
+                # if not _height:
+                #    # TO DO - have an optional line height param?
+                #    _line_height = 15
+                #    _height = _line_height * len(self.content)
+                _ou_codestyle = ou_codestyle(
+                    src=tmp_path,
+                    height=_height,
+                    width=_width,
+                    theme=_theme,
+                    codetype=_lang,
+                    codesnippet=_codesnippet
+                )
 
         # ?Crib Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
