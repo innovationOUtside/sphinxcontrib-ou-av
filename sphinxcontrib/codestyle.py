@@ -7,11 +7,11 @@ from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from urllib.parse import urlparse
 
+from sphinxcontrib_ou_media.utils import resources_path, fetch_template
+
 import os
 import uuid
 import zipfile
-
-import importlib.resources as resources
 
 from docutils import nodes
 from docutils.parsers.rst import directives
@@ -35,76 +35,7 @@ SUPPORTED_OPTIONS: List[str] = [
 ]
 "List of the supported options attributes"
 
-CODE_TEMPLATE = """
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Responsive elements via ChatGPT -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="ouseful-code-language" content="{lang}">
-	  <link href="https://unpkg.com/prismjs@1.29.0/themes/prism.css" rel="stylesheet" />
-    <style>
-    /* Add CSS styles for responsiveness here */
-    pre {{
-        overflow: auto;
-        width: 100%;
-    }}
-</style>
-  <script type="text/javascript">
-
-    /**
-     CRIBBED FROM vleapi.1.js in cl_codesnippet_v1.0 via https://learn2.open.ac.uk/mod/oucontent/view.php?id=2235581
-
-     * Dynamically resizes the iframe that contains this activity so that it
-     * matches its content.
-     *
-     * The width will not be altered - only the height will be changed. It can
-     * become larger or smaller.
-     *
-     * If you want to use this facility you need to call this function every
-     * time you do something that might affect the size of the iframe.
-     */
-    function resize_iframe() {{
-        // Find iframe in parent window.
-        var iframes = window.top.document.getElementsByTagName('iframe');
-        var iframe = null;
-        for (var i = 0; i < iframes.length; i ++) {{
-            var poss = iframes[i];
-            var doc = poss.contentDocument || poss.contentWindow.document;
-            if (doc == document) {{
-                iframe = poss;
-                break;
-            }}
-        }}
-        // If we can't find it, put a message in the console and abort.
-        if (!iframe) {{
-            if (window.console) {{
-                console.log('VLE.resize_iframe: Unable to find parent iframe');
-            }}
-            return;
-        }}
-        // Calculate body height including margins.
-        var html = document.getElementsByTagName('html')[0];
-        var styles = getComputedStyle(html);
-        var totalHeight = parseFloat(styles['marginTop']) +
-               parseFloat(styles['marginBottom']) + html.offsetHeight;
-        // Set the height.
-        iframe.height = totalHeight;
-    }}
-
-    window.onload = function () {{
-        // This function will be called when the iframe's content has finished loading.
-        resize_iframe();
-    }};
-    </script>
-</head>
-<body>
-<pre><code class="language-{lang}">{code}</code></pre>
-	<script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.js"></script>
-	<script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-</body>
-</html>
-"""
+CODE_TEMPLATE = fetch_template("assets", "html-zip-resources", "templates", "ou-code-index.html")
 
 # Example: https://executablebooks.github.io/thebe/
 # Cribbed from: https://github.com/stevejpurves/lite-quickstart-example/tree/gh-pages
@@ -274,11 +205,9 @@ class codestyle(SphinxDirective):
                 # TO DO  - we need to get the resources into the package
                 _src_zip = f"JL-{_src_root}.zip"
                 tmp_path = os.path.join("_tmp", _src_zip)
-                jl_dir_path = (
-                    resources.files("sphinxcontrib_ou_media")
-                    .joinpath("assets", "html-zip-resources", "jupyterlite", "index.js")
-                    .parent
-                )
+                jl_dir_path = resources_path.joinpath(
+                    "assets", "html-zip-resources", "jupyterlite", "index.js"
+                ).parent
                 zip_directory(jl_dir_path, tmp_path)
                 outpath = os.path.join(env.app.builder.outdir, _src_zip)
                 with zipfile.ZipFile(tmp_path, "a", zipfile.ZIP_DEFLATED) as zipf:
