@@ -73,25 +73,24 @@
     }}
 
     window.onload = function () {{
+      thebe.on("status", function (evt, data) {{
+        console.log("Status changed:", data.status, data.message);
+      }});
         // This function will be called when the iframe's content has finished loading.
         resize_iframe();
     }};
     </script>
-    <!-- Mutation watcher code via chatgpt -->
-    <script type="text/javascript">
-
-</script>
   <style>
     body {{ overflow: scroll }}
   </style>
   <link rel="stylesheet" href="https://unpkg.com/thebe@0.9.0-rc.7/lib/thebe.css" />
 </head>
 <body>
-    <button onclick="resize_iframe()">Resize</button>
     <div class="thebe-activate"></div>
     <div class="thebe-status"></div>
     <div style="height: auto; max-width: 800px; padding: 8px">
     <pre>{code}</pre>
     </div>
+    <button onclick="resize_iframe()">Resize</button>
 </body>
 </html>
