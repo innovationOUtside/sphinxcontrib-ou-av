@@ -31,7 +31,8 @@ SUPPORTED_OPTIONS: List[str] = [
     "height",
     "width",
     "src",
-    #TO DO - can we remove src? The src is the admonition title
+    "keep",
+    # TO DO - can we remove src? The src is the admonition title
 ]
 "List of the supported options attributes"
 
@@ -51,7 +52,7 @@ def get_html5(src: str, env: BuildEnvironment) -> Tuple[str, str]:
 
     # TH: what does this do??
     # Does this take a copy of the file so it can then be passed to the build directory?
-    #if not bool(urlparse(src).netloc):
+    # if not bool(urlparse(src).netloc):
     #    env.images.add_file("", src)
 
     suffix = Path(src).suffix
@@ -66,6 +67,7 @@ def get_html5(src: str, env: BuildEnvironment) -> Tuple[str, str]:
 
 class ou_html5(nodes.General, nodes.Element):
     """html5 node."""
+
     pass
 
 
@@ -82,6 +84,7 @@ class html5(SphinxDirective):
         "src": directives.unchanged,
         "width": directives.unchanged,
         "height": directives.unchanged,
+        "keep": directives.unchanged,
     }
 
     def run(self) -> List[ou_html5]:
@@ -92,19 +95,20 @@ class html5(SphinxDirective):
 
         # Get the asset location
         _src = get_html5(self.arguments[0], env)
-        #Copy the media asset over to the build directory
+        # Copy the media asset over to the build directory
         # _src[0] is the filename; _src[1] the mime type
         if not bool(urlparse(_src[0]).netloc):
-            outpath = os.path.join(env.app.builder.outdir,_src[0])
+            outpath = os.path.join(env.app.builder.outdir, _src[0])
             dirpath = os.path.dirname(outpath)
             if dirpath:
                 os.makedirs(dirpath, exist_ok=True)
             copyfile(_src[0], outpath)
         _ou_html5 = ou_html5(
-                src=_src[0],
-                height=self.options.get("height", ""),
-                width=self.options.get("width",""),
-            )
+            src=_src[0],
+            height=self.options.get("height", ""),
+            width=self.options.get("width", ""),
+            keep=self.options.get("keep", "never"),
+        )
         # The following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
         if self.content:
@@ -118,9 +122,7 @@ class html5(SphinxDirective):
                 _ou_html5 += caption
             if len(node) > 1:
                 _ou_html5 += nodes.legend("", *node[1:])
-        return [
-            _ou_html5
-        ]
+        return [_ou_html5]
 
 
 def visit_ou_html5_html(translator: SphinxTranslator, node: ou_html5) -> None:
@@ -129,7 +131,9 @@ def visit_ou_html5_html(translator: SphinxTranslator, node: ou_html5) -> None:
     # TO DO - if we just have a single html file,
     # or HTML text in the admonition, we could just srcdoc it?
     # If HTML in body, then call as ```{ou-html5} INLINE
-    attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if k in node and node[k]]
+    attr: List[str] = [
+        f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if k in node and node[k]
+    ]
     html: str = f"<iframe {' '.join(attr)}>"
 
     translator.body.append(html)
@@ -142,15 +146,13 @@ def depart_ou_html5_html(translator: SphinxTranslator, node: ou_html5) -> None:
 
 def visit_ou_html5_unsupported(translator: SphinxTranslator, node: ou_html5) -> None:
     """Entry point of the ignored html5 node."""
-    logger.warning(
-        f"html5 {node['src']}: unsupported output format (node skipped)"
-    )
+    logger.warning(f"html5 {node['src']}: unsupported output format (node skipped)")
     raise nodes.SkipNode
 
 
 def setup(app: Sphinx) -> Dict[str, bool]:
     """Add html5 node and parameters to the Sphinx builder."""
-    #app.add_config_value("html5_enforce_extra_source", False, "html")
+    # app.add_config_value("html5_enforce_extra_source", False, "html")
     app.add_node(
         ou_html5,
         html=(visit_ou_html5_html, depart_ou_html5_html),
