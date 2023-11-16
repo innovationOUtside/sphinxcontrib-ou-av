@@ -197,9 +197,7 @@ class ActivityAnswerHtmlTransform(SphinxPostTransform):
     def run(self):
         """Run the transform"""
         document: nodes.document = self.document
-        for node in document.findall(
-            lambda node: is_component(node, "ou-activity-answer")
-        ):
+        for node in document.findall(lambda node: is_component(node, "ou-answer")):
             newnode = create_component(
                 "ou-activity-answer",
                 classes=["ou-activity-answer"],
@@ -219,6 +217,8 @@ class ActivityAnswerHtmlTransform(SphinxPostTransform):
             node.replace_self(newnode)
 
 
+# TO DO - at the moment we treat exercise and activity the same way
+
 class ActivityHtmlTransform(SphinxPostTransform):
     """Transform activity containers into the HTML specific AST structures."""
 
@@ -228,7 +228,10 @@ class ActivityHtmlTransform(SphinxPostTransform):
     def run(self):
         """Run the transform"""
         document: nodes.document = self.document
-        for node in document.findall(lambda node: is_component(node, "ou-activity")):
+        for node in document.findall(
+            lambda node: is_component(node, "ou-activity")
+            or is_component(node, "ou-exercise")
+        ):
             newnode = create_component(
                 "ou-activity",
                 classes=["ou-activity"],
