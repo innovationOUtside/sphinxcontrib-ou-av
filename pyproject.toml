@@ -38,4 +38,4 @@ license-files = ["LICENSE"]
 packages = ["sphinxcontrib", "sphinxcontrib_ou_media"]
 
 [tool.setuptools.package-data]
-sphinxcontrib_ou_media = ["assets/**"]
+sphinxcontrib_ou_media = ["assets/**", "static/**"]
