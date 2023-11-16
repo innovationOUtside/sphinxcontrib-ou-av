@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 
 from sphinxcontrib_ou_media.utils import resources_path, fetch_template
 
+import json
 import os
 import uuid
 import zipfile
@@ -34,6 +35,7 @@ SUPPORTED_OPTIONS: List[str] = [
     "type",
     "viewer",
     "theme",
+    "keep",
 ]
 "List of the supported options attributes"
 
@@ -84,6 +86,7 @@ class codestyle(SphinxDirective):
         "type": directives.unchanged,
         "viewer": directives.unchanged,
         "theme": directives.unchanged,
+        "keep": directives.unchanged,
     }
 
     def run(self) -> List[ou_codestyle]:
@@ -110,17 +113,17 @@ class codestyle(SphinxDirective):
         elif self.content:
             _src_root = f"{uuid.uuid4().hex}"
             os.makedirs("_tmp", exist_ok=True)
-            if _type == "jupyterlite":
+            if _type == "thebelite":
                 html = THEBE_LITE_TEMPLATE.format(
                     lang=_lang, code="\n".join(self.content)
                 )
                 _src_zip = f"JL-{_src_root}.zip"
                 tmp_path = os.path.join("_tmp", _src_zip)
                 jl_dir_path = resources_path().joinpath(
-                    "assets", "html-zip-resources", "jupyterlite"
+                    "assets", "html-zip-resources", "thebelite"
                 )
                 zip_directory(jl_dir_path, tmp_path)
-                outpath = os.path.join(env.app.builder.outdir, _src_zip)
+                # outpath = os.path.join(env.app.builder.outdir, _src_zip)
                 with zipfile.ZipFile(tmp_path, "a", zipfile.ZIP_DEFLATED) as zipf:
                     # Create a new file named 'index.html' and write the text to it
                     zipf.writestr("index.html", html)
@@ -133,9 +136,69 @@ class codestyle(SphinxDirective):
                     src=tmp_path,
                     height=_height,
                     width=_width,
+                    interactivetype="thebelite",
+                    keep=self.options.get("keep", "never"),
+                )
+            elif _type == "shinylite-py":
+                shiny_app = [
+                    {
+                        "name": "app.py",
+                        "type": "text",
+                        "content": "\n".join(self.content),
+                    }
+                ]
+                _src_zip = f"SH-py-{_src_root}.zip"
+                tmp_path = os.path.join("_tmp", _src_zip)
+                shl_dir_path = resources_path().joinpath(
+                    "assets", "html-zip-resources", "shinylite-py"
+                )
+                zip_directory(shl_dir_path, tmp_path)
+                # outpath = os.path.join(env.app.builder.outdir, _src_zip)
+                with zipfile.ZipFile(tmp_path, "a", zipfile.ZIP_DEFLATED) as zipf:
+                    # Create a new file named 'index.html' and write the text to it
+                    zipf.writestr("app.json", json.dumps(shiny_app))
+                # copyfile(tmp_path, outpath)
+                # if not _height:
+                #    # TO DO - have an optional line height param?
+                #    _line_height = 15
+                #    _height = _line_height * len(self.content) + 200
+                _ou_codestyle = ou_codestyle(
+                    src=tmp_path,
+                    height=_height,
+                    width=_width,
+                    interactivetype="shinylite-py",
+                    keep=self.options.get("keep", "never"),
+                )
+            elif _type == "Xshinylite-py":
+                shiny_app = [
+                    {
+                        "name": "app.py",
+                        "type": "text",
+                        "content": "\n".join(self.content),
+                    }
+                ]
+                txt = json.dumps(shiny_app)
+                _src = f"XShPy-{_src_root}.py"
+                tmp_path = os.path.join("_tmp", _src)
+                outpath = os.path.join(env.app.builder.outdir, _src)
+                with open(tmp_path, "w") as f:
+                    f.write(txt)
+                # copyfile(tmp_path, outpath)
+                # if not _height:
+                #    # TO DO - have an optional line height param?
+                #    _line_height = 15
+                #    _height = _line_height * len(self.content) + 200
+                _ou_codestyle = ou_codestyle(
+                    src=tmp_path,
+                    height=_height,
+                    width=_width,
+                    keep=self.options.get("keep", "never"),
+                    interactivetype="Xshinylite-py",
                 )
             else:
-                _codesnippet = self.options.get("viewer", "th_hack").lower()=="codesnippet"
+                _codesnippet = (
+                    self.options.get("viewer", "th_hack").lower() == "codesnippet"
+                )
                 # Currently, theme and code only apply to codesnippet
                 _theme = self.options.get("theme", "light").lower()
                 if _codesnippet:
@@ -164,7 +227,8 @@ class codestyle(SphinxDirective):
                     width=_width,
                     theme=_theme,
                     codetype=_lang,
-                    codesnippet=_codesnippet
+                    codesnippet=_codesnippet,
+                    keep=self.options.get("keep", "never"),
                 )
 
         # ?Crib Jupyter Book and adds a caption etc
