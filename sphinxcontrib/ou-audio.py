@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Tuple
 from urllib.parse import urlparse
 
 import os
+import warnings
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.application import Sphinx
@@ -23,8 +24,8 @@ logger = logging.getLogger(__name__)
 
 SUPPORTED_MIME_TYPES: Dict[str, str] = {
     ".mp3": "audio/mpeg",
-    #".wav": "audio/wav",
-    #".weba": "audio/webm",
+    # ".wav": "audio/wav",
+    # ".weba": "audio/webm",
 }
 "Supported mime types of the link tag"
 
@@ -54,7 +55,7 @@ def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
 
     # TH: what does this do??
     # Does this take a copy of the file so it can then be passed to the build directory?
-    #if not bool(urlparse(src).netloc):
+    # if not bool(urlparse(src).netloc):
     #    env.images.add_file("", src)
 
     suffix = Path(src).suffix
@@ -69,6 +70,7 @@ def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
 
 class ou_audio(nodes.General, nodes.Element):
     """Audio node."""
+
     pass
 
 
@@ -105,23 +107,29 @@ class Audio(SphinxDirective):
 
         # Get the asset location
         _src = get_audio(self.arguments[0], env)
-        #Copy the media asset over to the build directory
+        # Copy the media asset over to the build directory
         # _src[0] is the filename; _src[1] the mime type
         if not bool(urlparse(_src[0]).netloc):
-            outpath = os.path.join(env.app.builder.outdir,_src[0])
+            outpath = os.path.join(env.app.builder.outdir, _src[0])
             dirpath = os.path.dirname(outpath)
             if dirpath:
                 os.makedirs(dirpath, exist_ok=True)
-            copyfile(_src[0], outpath)
+            if Path(_src[0]).exists():
+                copyfile(_src[0], outpath)
+            else:
+                warning_message = (
+                f"The source file '{_src[0]}' does not exist. No file copied for audio admonition."
+                )
+                warnings.warn(warning_message, UserWarning)
         _ou_audio = ou_audio(
-                src=_src[0],
-                autoplay="autoplay" in self.options,
-                controls="nocontrols" not in self.options,
-                loop="loop" in self.options,
-                muted="muted" in self.options,
-                preload=preload,
-                klass=self.options.get("class", ""),
-            )
+            src=_src[0],
+            autoplay="autoplay" in self.options,
+            controls="nocontrols" not in self.options,
+            loop="loop" in self.options,
+            muted="muted" in self.options,
+            preload=preload,
+            klass=self.options.get("class", ""),
+        )
         # THe following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
         if self.content:
@@ -135,9 +143,7 @@ class Audio(SphinxDirective):
                 _ou_audio += caption
             if len(node) > 1:
                 _ou_audio += nodes.legend("", *node[1:])
-        return [
-            _ou_audio
-        ]
+        return [_ou_audio]
 
 
 def visit_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
@@ -158,15 +164,13 @@ def depart_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
 
 def visit_ou_audio_unsupported(translator: SphinxTranslator, node: ou_audio) -> None:
     """Entry point of the ignored audio node."""
-    logger.warning(
-        f"audio {node['src']}: unsupported output format (node skipped)"
-    )
+    logger.warning(f"audio {node['src']}: unsupported output format (node skipped)")
     raise nodes.SkipNode
 
 
 def setup(app: Sphinx) -> Dict[str, bool]:
     """Add audio node and parameters to the Sphinx builder."""
-    #app.add_config_value("audio_enforce_extra_source", False, "html")
+    # app.add_config_value("audio_enforce_extra_source", False, "html")
     app.add_node(
         ou_audio,
         html=(visit_ou_audio_html, depart_ou_audio_html),

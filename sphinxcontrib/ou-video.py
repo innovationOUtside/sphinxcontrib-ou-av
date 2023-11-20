@@ -8,6 +8,7 @@ from typing import Any, Dict, List, Tuple
 from urllib.parse import urlparse
 
 import os
+import warnings
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.application import Sphinx
@@ -112,7 +113,13 @@ class Video(SphinxDirective):
             dirpath = os.path.dirname(outpath)
             if dirpath:
                 os.makedirs(dirpath, exist_ok=True)
-            copyfile(_src[0], outpath)
+            if Path(_src[0]).exists():
+                copyfile(_src[0], outpath)
+            else:
+                warning_message = (
+                f"The source file '{_src[0]}' does not exist. No file copied for video admonition."
+                )
+                warnings.warn(warning_message, UserWarning)
         _ou_video = ou_video(
                 src=_src[0],
                 alt=self.options.get("alt", ""),
