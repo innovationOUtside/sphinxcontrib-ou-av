@@ -16,3 +16,11 @@ Simple Sphinx extension to create Sphinx parseable markdown admonitions that can
 Install as:
 
 `python3 -m pip install .`
+
+## HTML packages
+
+```bash
+cd sphinxcontrib_ou_media/packages/shinylite-py
+zip -r -X "../../../dist/shinylite-py-01.zip" .
+cd ../..
+```
