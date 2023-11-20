@@ -263,7 +263,6 @@ def setup(app: Sphinx) -> Dict[str, bool]:
     app.add_directive("ou-exercise", OU_ExerciseDirective)
     app.add_directive("ou-answer", OU_AnswerDirective)
     app.add_directive("ou-discussion", OU_DiscussionDirective)
-    app.add_directive("ou-discussion", OU_DiscussionDirective)
     app.add_directive("ou-interaction", OU_InteractionDirective)
 
     app.add_post_transform(ActivityHtmlTransform)
