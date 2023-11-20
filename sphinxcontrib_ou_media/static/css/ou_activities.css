@@ -1,4 +1,9 @@
 /* Via Mark Hall, ou-book-theme */
+
+:root {
+    --ou-color-activity: 98, 191, 178;
+}
+
 .ou-activity {
     margin: 1.5625em auto;
     padding: 0 .6rem .8rem;
