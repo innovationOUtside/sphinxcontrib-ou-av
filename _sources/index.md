@@ -38,4 +38,3 @@ sphinx:
     - ou_book_theme
 ```
 
-The `ou_activity` extension also requires: `pip install ou-book-theme`.

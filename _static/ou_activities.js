@@ -1,16 +1,29 @@
-/**
- * Enable the toggle button on OU activities.
- */
-function activitySetup() {
-    for(const toggle of document.querySelectorAll('.ou-toggle')) {
-        toggle.addEventListener('click', () => {
-            toggle.classList.toggle('ou-toggle-hidden');
-        });
-    }
+function ou_activitySetup() {
+  for (const toggle of document.querySelectorAll(".ou-toggle")) {
+    toggle.addEventListener("click", () => {
+      // Find the associated content container
+      const answerContent = toggle
+        .closest(".ou-activity-answer")
+        .querySelector(".ou-activity-answer-content");
+
+      if (answerContent) {
+        // Toggle the visibility of the content
+        answerContent.classList.toggle("ou-hidden");
+
+        // Toggle the button state
+        toggle.classList.toggle("ou-toggle-hidden");
+      }
+    });
+  }
 }
 
-// Add an event listener for 'DOMContentLoaded'
-document.addEventListener('DOMContentLoaded', () => {
-    // Call the function when the DOM is fully loaded
-    activitySetup();
+document.addEventListener("DOMContentLoaded", () => {
+  ou_activitySetup();
+
+  // Initially hide all answer contents
+  document
+    .querySelectorAll(".ou-activity-answer-content")
+    .forEach((content) => {
+      content.classList.add("ou-hidden");
+    });
 });
