@@ -49,13 +49,13 @@ def handle_css_js_assets(app, stub):
     copy_asset(
         os.path.join(source_dir, "js", js_file),
         build_dir,
-        app.builder,
+        #app.builder,
     )
     # Copy CSS file
     copy_asset(
         os.path.join(source_dir, "css", css_file),
         build_dir,
-        app.builder,
+        #app.builder,
     )
     app.add_css_file(css_file)
     app.add_js_file(js_file)
