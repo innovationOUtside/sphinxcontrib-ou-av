@@ -3,4 +3,5 @@ build
 *.egg-info
 internal-packages
 .ipynb_checkpoints
-
+_tmp/
+docs/_build
