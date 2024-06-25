@@ -30,8 +30,8 @@ jobs:
       run: |
         jb build docs --builder custom --custom-builder xml
         ouseful_obt docs
-        cp -rf docs/_build/ouxml ./_build/html
-        mv ./_build/html/ouxml/ouseful-demo-sphinx_0.xml ./_build/html/ouxml/index.xml 
+        mkdir -p ./docs/_build/html/ouxml
+        mv ./docs/_build/ouxml/ouseful-demo-sphinx_0.xml ./docs/_build/html/ouxml/index.xml 
     # Push the book's HTML to github-pages
     # Push the book's HTML to github-pages
     - name: GitHub Pages action
