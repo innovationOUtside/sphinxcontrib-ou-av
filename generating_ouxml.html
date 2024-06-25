@@ -333,14 +333,14 @@ document.write(`
                   
   <section id="generating-ou-xml">
 <h1>Generating OU-XML<a class="headerlink" href="#generating-ou-xml" title="Link to this heading">#</a></h1>
-<p>Generating OU-XML is two part process and requires the additional installation of</p>
+<p>Generating OU-XML is two part process and requires the additional installation of the <a class="reference external" href="https://github.com/innovationOUtside/ou-xml-validator/"><code class="docutils literal notranslate"><span class="pre">ou-xml-validator</span></code> package</a>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/innovationOUtside/ou-xml-validator.git</span></code></p>
 <p>The first step is to use Jupyter Book tooling to generate a Sphinx XML version of the Jupyter Book, as defined by the <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code> files:</p>
 <p><code class="docutils literal notranslate"><span class="pre">jb</span> <span class="pre">build</span> <span class="pre">PATH_TO_BOOK_SRC</span> <span class="pre">--builder</span> <span class="pre">custom</span> <span class="pre">--custom-builder</span> <span class="pre">xml</span></code></p>
 <p>This generates XML files in the default <code class="docutils literal notranslate"><span class="pre">_build/xml</span></code> directory.</p>
-<p>The second step is to use the <code class="docutils literal notranslate"><span class="pre">ouseful_obt</span></code> command-line tool from the <a class="reference external" href="https://github.com/innovationOUtside/ou-xml-validator/"><code class="docutils literal notranslate"><span class="pre">ou-xml-validator</span></code> package</a>:</p>
-<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/innovationOUtside/ou-xml-validator.git</span></code></p>
+<p>The second step is to use the <code class="docutils literal notranslate"><span class="pre">ouseful_obt</span></code> command-line tool from the <code class="docutils literal notranslate"><span class="pre">ou-xml-validator</span></code> package:</p>
 <p><code class="docutils literal notranslate"><span class="pre">ouseful_obt</span> <span class="pre">PATH_TO_BOOK_SRC</span></code></p>
-<p>*Note that this currently requires several <code class="docutils literal notranslate"><span class="pre">ou</span></code> parameters to be set, otherwise an error will be raised.</p>
+<p><em>Note that this currently requires several <code class="docutils literal notranslate"><span class="pre">ou</span></code> parameters to be set in the Sphinx <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code> file, otherwise an error will be raised.</em></p>
 <p>Example <code class="docutils literal notranslate"><span class="pre">ou</span></code> settings in <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ou</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">module_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OUSEFUL-DEMO-SPHINX</span>
@@ -361,7 +361,7 @@ document.write(`
 </div>
 <p>Generated OU-XML content in the <code class="docutils literal notranslate"><span class="pre">_build/ouxml</span></code> directory can then be validated against an OU-XML schema by running the command:</p>
 <p><code class="docutils literal notranslate"><span class="pre">ou_xml_validator</span> <span class="pre">validate</span> <span class="pre">path/to/testme.xml</span></code></p>
-<p>See an example of the XML generated for this documentation <a class="reference internal" href="#ouxml/index.xml"><span class="xref myst">here</span></a>.</p>
+<p>See an example of the XML generated for this documentation <a class="reference external" href="https://innovationoutside.github.io/sphinxcontrib-ou-xml-tags/ouxml/index.xml">here</a>.</p>
 </section>
 
     <script type="text/x-thebe-config">

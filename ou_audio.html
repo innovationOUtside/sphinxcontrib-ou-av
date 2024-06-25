@@ -340,22 +340,24 @@ A caption for an audio file.
 ```
 </pre></div>
 </div>
-<audio controls="True" preload="auto"><source src="_images/test.mp3" type="audio/mpeg"><p><span class="caption-text">A caption for an audio file.</span></p>
+<p>This is rendered inside an HTML page as:</p>
+<figure><audio controls="True" preload="auto"><source src="_images/test.mp3" type="audio/mpeg"><figcaption><p><span class="caption-text"></figcaption></figure><p><span class="caption-text">A caption for an audio file.</span></p>
 </audio><p>Renders to the following OU-XML:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="w"> </span><span class="nt">&lt;MediaContent</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;audio&quot;</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3&quot;</span><span class="nt">&gt;</span>
 <span class="w">        </span><span class="nt">&lt;Caption&gt;</span>Figure<span class="w"> </span>1.1<span class="w"> </span>A<span class="w"> </span>caption<span class="w"> </span>for<span class="w"> </span>an<span class="w"> </span>audio<span class="w"> </span>file.<span class="nt">&lt;/Caption&gt;</span>
 <span class="nt">&lt;/MediaContent&gt;</span>
 </pre></div>
 </div>
-<p>As with the <code class="docutils literal notranslate"><span class="pre">ou-video</span></code> element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block.</p>
-<audio controls="True" preload="auto"><source src="_images/test.mp3" type="audio/mpeg"><p><span class="caption-text">A caption for an audio file.</span></p>
+<p>As with the <code class="docutils literal notranslate"><span class="pre">ou-video</span></code> element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block, which renders inside an HTML page as:</p>
+<figure><audio controls="True" preload="auto"><source src="_images/test.mp3" type="audio/mpeg"><figcaption><p><span class="caption-text"></figcaption></figure><p><span class="caption-text">A caption for an audio file.</span></p>
 <figcaption>
 <div class="legend">
 <p>A line of description.
 And continuation of the line.</p>
 <p>More description.</p>
 </div>
-</audio><p>Renders the the following OU-XML:</p>
+</audio><p><em>TO DO - class and style the caption etc?</em></p>
+<p>The extended admonition block can also be transformed to the following OU-XML:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;MediaContent</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;audio&quot;</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Caption&gt;</span>Figure<span class="w"> </span>1.2<span class="w"> </span>A<span class="w"> </span>caption<span class="w"> </span>for<span class="w"> </span>an<span class="w"> </span>audio<span class="w"> </span>file.<span class="nt">&lt;/Caption&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Description&gt;</span>

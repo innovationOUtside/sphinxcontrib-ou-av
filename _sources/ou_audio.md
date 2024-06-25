@@ -8,6 +8,8 @@ A caption for an audio file.
 ```
 ````
 
+This is rendered inside an HTML page as:
+
 ```{ou-audio} resources/test.mp3
 A caption for an audio file.
 ```
@@ -20,7 +22,7 @@ Renders to the following OU-XML:
 </MediaContent>
 ```
 
-As with the `ou-video` element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block.
+As with the `ou-video` element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block, which renders inside an HTML page as:
 
 ```{ou-audio} resources/test.mp3
 A caption for an audio file.
@@ -31,7 +33,9 @@ And continuation of the line.
 More description.
 ```
 
-Renders the the following OU-XML:
+*TO DO - class and style the caption etc?*
+
+The extended admonition block can also be transformed to the following OU-XML:
 
 ```xml
 <MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3">
@@ -43,5 +47,4 @@ Renders the the following OU-XML:
     </Description>
 </MediaContent>
 ```
-
 *Currently, there is no native MyST admonition for embedding an audio player.*

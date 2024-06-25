@@ -358,12 +358,25 @@ Do something...
 ```
 </pre></div>
 </div>
+<p>This currently renders to HTML as:</p>
 <div class="ou-activity docutils">
 <div class="ou-activity-title docutils">
 Activity 1</div>
 <div class="docutils">
 1 hour</div>
 <p>Do something…</p>
+</div>
+<p>This generates the following OU-XML (leaeding and trailing whitespace imside a tag is typically ignored; <em>but I do need to try to tidy this up…</em>):</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Activity&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Heading&gt;</span>
+Activity<span class="w"> </span>1<span class="w">                </span><span class="nt">&lt;/Heading&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Timing&gt;</span>
+1<span class="w"> </span>hour<span class="w">                </span><span class="nt">&lt;/Timing&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Question&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>Do<span class="w"> </span>something…<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Question&gt;</span>
+<span class="nt">&lt;/Activity&gt;</span>
+</pre></div>
 </div>
 <p>Activities can optionally include an answer:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>````{ou-activity} Activity 2
@@ -378,6 +391,7 @@ And *more* bits of answer.
 ````
 </pre></div>
 </div>
+<p>This is currently rednered inside an HTML page as:</p>
 <div class="ou-activity docutils">
 <div class="ou-activity-title docutils">
 Activity 2</div>
@@ -391,10 +405,31 @@ Activity 2</div>
 </div>
 </div>
 </div>
+<p>The genereated OU-XML is:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Activity&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Heading&gt;</span>
+Activity<span class="w"> </span>2<span class="w">                </span><span class="nt">&lt;/Heading&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Question&gt;&lt;Paragraph&gt;</span>Do<span class="w"> </span>something<span class="w"> </span>else…<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Question&gt;&lt;Answer&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>Here<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>second<span class="w"> </span>activity<span class="w"> </span>answer.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>And<span class="w"> </span><span class="nt">&lt;i&gt;</span>more<span class="nt">&lt;/i&gt;</span><span class="w"> </span>bits<span class="w"> </span>of<span class="w"> </span>answer.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Answer&gt;</span>
+<span class="nt">&lt;/Activity&gt;</span>
+</pre></div>
+</div>
 <p>Ideally we should also have an identifier associated woth the activity, not least so we can provide a cross-reference link to the activity.</p>
 </section>
 <section id="exercises">
 <h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
+<p>Exercies are also supported, and are distinct fron those supported by the <code class="docutils literal notranslate"><span class="pre">sphinx-exercise</span></code> extension:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>```{ou-exercise} Exercise 1
+:timing: 1 hour
+
+Do something...
+```
+</pre></div>
+</div>
+<p>This is rendered in an HTML page as:</p>
 <div class="ou-activity docutils">
 <div class="ou-activity-title docutils">
 Exercise 1</div>
@@ -402,6 +437,30 @@ Exercise 1</div>
 1 hour</div>
 <p>Do something…</p>
 </div>
+<p>and generates the following OU-XML:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Exercise&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Heading&gt;</span>
+Exercise<span class="w"> </span>1<span class="w">                </span><span class="nt">&lt;/Heading&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Timing&gt;</span>
+1<span class="w"> </span>hour<span class="w">                </span><span class="nt">&lt;/Timing&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Question&gt;&lt;Paragraph&gt;</span>Do<span class="w"> </span>something…<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="nt">&lt;/Question&gt;&lt;/Exercise&gt;</span>
+</pre></div>
+</div>
+<p>Exercises may also contain answers:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>````{ou-exercise} Exercise 2
+:timing: 15 minutes
+Do something else...
+
+```{ou-answer}
+Here is the second activity answer.
+
+And *more* bits of answer.
+```
+````
+</pre></div>
+</div>
+<p>This renders inside an HTML page as:</p>
 <div class="ou-activity docutils">
 <div class="ou-activity-title docutils">
 Exercise 2</div>
@@ -417,7 +476,34 @@ Exercise 2</div>
 </div>
 </div>
 </div>
+<p>and as is transformed to the following OU-XML:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Exercise&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Heading&gt;</span>
+Exercise<span class="w"> </span>2<span class="w">                </span><span class="nt">&lt;/Heading&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Timing&gt;</span>
+15<span class="w"> </span>minutes<span class="w">                </span><span class="nt">&lt;/Timing&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Question&gt;&lt;Paragraph&gt;</span>Do<span class="w"> </span>something<span class="w"> </span>else…<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Question&gt;&lt;Answer&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>Here<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>second<span class="w"> </span>activity<span class="w"> </span>answer.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>And<span class="w"> </span><span class="nt">&lt;i&gt;</span>more<span class="nt">&lt;/i&gt;</span><span class="w"> </span>bits<span class="w"> </span>of<span class="w"> </span>answer.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Answer&gt;</span>
+<span class="nt">&lt;/Exercise&gt;</span>
+</pre></div>
+</div>
 <p>We can also have a discussion block:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>````{ou-exercise} Exercise 3
+:timing: 15 minutes
+Do something else...
+
+```{ou-discussion}
+Here is the third exercise discussion.
+
+And *more* bits of discussion.
+```
+````
+</pre></div>
+</div>
+<p>rendered into an HTML page as follows:</p>
 <div class="ou-activity docutils">
 <div class="ou-activity-title docutils">
 Exercise 3</div>
@@ -429,7 +515,41 @@ Exercise 3</div>
 <p>And <em>more</em> bits of discussion.</p>
 </div>
 </div>
+<p>And with corresponding OU-XML:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Exercise&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Heading&gt;</span>
+Exercise<span class="w"> </span>3<span class="w">                </span><span class="nt">&lt;/Heading&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Timing&gt;</span>
+15<span class="w"> </span>minutes<span class="w">                </span><span class="nt">&lt;/Timing&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Question&gt;&lt;Paragraph&gt;</span>Do<span class="w"> </span>something<span class="w"> </span>else…<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Question&gt;&lt;Discussion&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>Here<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>third<span class="w"> </span>exercise<span class="w"> </span>discussion.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>And<span class="w"> </span><span class="nt">&lt;i&gt;</span>more<span class="nt">&lt;/i&gt;</span><span class="w"> </span>bits<span class="w"> </span>of<span class="w"> </span>discussion.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Discussion&gt;</span>
+<span class="nt">&lt;/Exercise&gt;</span>
+</pre></div>
+</div>
 <p>Or an answer and a discussion block:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>````{ou-exercise} Exercise 4
+:timing: 1 hour
+Do something else...
+
+```{ou-answer}
+Here is the fourth exercise answer.
+
+And *more* bits of answer.
+```
+
+```{ou-discussion}
+Here is the fourth exercise discussion.
+
+And *more* bits of discussion.
+```
+
+````
+</pre></div>
+</div>
+<p>which is rendered into an HTML page as:</p>
 <div class="ou-activity docutils">
 <div class="ou-activity-title docutils">
 Exercise 4</div>
@@ -448,6 +568,24 @@ Exercise 4</div>
 <p>Here is the fourth exercise discussion.</p>
 <p>And <em>more</em> bits of discussion.</p>
 </div>
+</div>
+<p>and to the following OU-XML:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Exercise&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Heading&gt;</span>
+Exercise<span class="w"> </span>4<span class="w">                </span><span class="nt">&lt;/Heading&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Timing&gt;</span>
+1<span class="w"> </span>hour<span class="w">                </span><span class="nt">&lt;/Timing&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Question&gt;&lt;Paragraph&gt;</span>Do<span class="w"> </span>something<span class="w"> </span>else…<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Question&gt;&lt;Answer&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>Here<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>fourth<span class="w"> </span>exercise<span class="w"> </span>answer.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>And<span class="w"> </span><span class="nt">&lt;i&gt;</span>more<span class="nt">&lt;/i&gt;</span><span class="w"> </span>bits<span class="w"> </span>of<span class="w"> </span>answer.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Answer&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Discussion&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>Here<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>fourth<span class="w"> </span>exercise<span class="w"> </span>discussion.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>And<span class="w"> </span><span class="nt">&lt;i&gt;</span>more<span class="nt">&lt;/i&gt;</span><span class="w"> </span>bits<span class="w"> </span>of<span class="w"> </span>discussion.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Discussion&gt;</span>
+<span class="nt">&lt;/Exercise&gt;</span>
+</pre></div>
 </div>
 </section>
 </section>

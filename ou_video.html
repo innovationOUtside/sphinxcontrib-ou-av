@@ -336,6 +336,11 @@ document.write(`
 <h1>Embedded video — <code class="docutils literal notranslate"><span class="pre">ou-video</span></code> admonition<a class="headerlink" href="#embedded-video-ou-video-admonition" title="Link to this heading">#</a></h1>
 <p>Embed a video player capable of playing of a specified video file:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>```{ou-video} resources/test.mp4
+```
+</pre></div>
+</div>
+<p>We can also include one or more than one line of text in the body of the admonition.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>```{ou-video} resources/test.mp4
 A caption for a video file.
 
 A line of description.
@@ -345,14 +350,8 @@ More description.
 ```
 </pre></div>
 </div>
-<video controls="True" preload="auto"><source src="_images/test.mp4" type="video/mp4"><p><span class="caption-text">A caption for a video file.</span></p>
-<figcaption>
-<div class="legend">
-<p>A line of description.
-And continuation of the line.</p>
-<p>More description.</p>
-</div>
-</video><p>Renders to the following OU-XML:</p>
+<p><em>TO DO - class and style the caption etc?</em></p>
+<p>The first line is mapped to a caption. Any additional lines are mapped to a description. The corresponding OU-XML is:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;MediaContent</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;video&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Caption&gt;</span>Figure<span class="w"> </span>2.1<span class="w"> </span>A<span class="w"> </span>caption<span class="w"> </span>for<span class="w"> </span>a<span class="w"> </span>video<span class="w"> </span>file.<span class="nt">&lt;/Caption&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Description&gt;</span>
@@ -363,9 +362,9 @@ And continuation of the line.</p>
 <span class="nt">&lt;/MediaContent&gt;</span>
 </pre></div>
 </div>
-<p>The block can also be empty of caption and description text. <em>If there is any text in the body of the admonition, the first line is mapped onto an OU-XML <code class="docutils literal notranslate"><span class="pre">&lt;Caption&gt;</span></code> element.</em></p>
-<p>The MyST spec also lets you use a video file path in a <code class="docutils literal notranslate"><span class="pre">{figure}</span></code> admonition when generating HTML output, but this is not support for conversion to OU-XML. There is a also a <a class="reference external" href="https://github.com/sphinx-contrib/youtube"><code class="docutils literal notranslate"><span class="pre">sphinx-contrib/youtube</span></code></a> extension for embedding videos, but again there is no direct path for generating an appropriate OU-XML media tag.</p>
+<p>The MyST spec also lets you use a video file path in a <code class="docutils literal notranslate"><span class="pre">{figure}</span></code> admonition when generating HTML output, but this is not (yet?) supported for conversion to OU-XML. There is a also a <a class="reference external" href="https://github.com/sphinx-contrib/youtube"><code class="docutils literal notranslate"><span class="pre">sphinx-contrib/youtube</span></code></a> extension for embedding videos, but again there is no direct path for generating an appropriate OU-XML media tag.</p>
 <p><em>TO DO: how does OU-XML recommend YouTube embeds?</em></p>
+<p><em>TO DO: support MyST generated video embeds in conversion to OU-XML.</em></p>
 </section>
 
     <script type="text/x-thebe-config">

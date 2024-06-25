@@ -54,12 +54,13 @@
         <Title>1 Audio Items — <ComputerCode>ou-audio</ComputerCode> admonition</Title>
         <Paragraph>Embed an audio player capable of playing a specified audio file:</Paragraph>
         <ProgramListing><Paragraph>```{ou-audio} resources/test.mp3<br/>A caption for an audio file.<br/>```</Paragraph></ProgramListing>
+        <Paragraph>This is rendered inside an HTML page as:</Paragraph>
         <MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3">
             <Caption>Figure 1.1 A caption for an audio file.</Caption>
         </MediaContent>
         <Paragraph>Renders to the following OU-XML:</Paragraph>
         <ProgramListing><Paragraph> &lt;MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3"&gt;<br/>        &lt;Caption&gt;Figure 1.1 A caption for an audio file.&lt;/Caption&gt;<br/>&lt;/MediaContent&gt;</Paragraph></ProgramListing>
-        <Paragraph>As with the <ComputerCode>ou-video</ComputerCode> element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block.</Paragraph>
+        <Paragraph>As with the <ComputerCode>ou-video</ComputerCode> element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block, which renders inside an HTML page as:</Paragraph>
         <MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3">
             <Caption>Figure 1.2 A caption for an audio file.</Caption>
             <Description>
@@ -68,27 +69,23 @@
                 <Paragraph>More description.</Paragraph>
             </Description>
         </MediaContent>
-        <Paragraph>Renders the the following OU-XML:</Paragraph>
+        <Paragraph><i>TO DO - class and style the caption etc?</i></Paragraph>
+        <Paragraph>The extended admonition block can also be transformed to the following OU-XML:</Paragraph>
         <ProgramListing><Paragraph>&lt;MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3"&gt;<br/>    &lt;Caption&gt;Figure 1.2 A caption for an audio file.&lt;/Caption&gt;<br/>    &lt;Description&gt;<br/>        &lt;Paragraph&gt;A line of description.<br/>            And continuation of the line.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;More description.&lt;/Paragraph&gt;<br/>    &lt;/Description&gt;<br/>&lt;/MediaContent&gt;</Paragraph></ProgramListing>
         <Paragraph><i>Currently, there is no native MyST admonition for embedding an audio player.</i></Paragraph>
     </Session>
     <Session id="embedded-video-ou-video-admonition">
         <Title>2 Embedded video — <ComputerCode>ou-video</ComputerCode> admonition</Title>
         <Paragraph>Embed a video player capable of playing of a specified video file:</Paragraph>
+        <ProgramListing><Paragraph>```{ou-video} resources/test.mp4<br/>```</Paragraph></ProgramListing>
+        <Paragraph>We can also include one or more than one line of text in the body of the admonition.</Paragraph>
         <ProgramListing><Paragraph>```{ou-video} resources/test.mp4<br/>A caption for a video file.<br/><br/>A line of description.<br/>And continuation of the line.<br/><br/>More description.<br/>```</Paragraph></ProgramListing>
-        <MediaContent type="video" height="" width="" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4">
-            <Caption>Figure 2.1 A caption for a video file.</Caption>
-            <Description>
-                <Paragraph>A line of description.
-                    And continuation of the line.</Paragraph>
-                <Paragraph>More description.</Paragraph>
-            </Description>
-        </MediaContent>
-        <Paragraph>Renders to the following OU-XML:</Paragraph>
+        <Paragraph><i>TO DO - class and style the caption etc?</i></Paragraph>
+        <Paragraph>The first line is mapped to a caption. Any additional lines are mapped to a description. The corresponding OU-XML is:</Paragraph>
         <ProgramListing><Paragraph>&lt;MediaContent type="video" height="" width="" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4"&gt;<br/>    &lt;Caption&gt;Figure 2.1 A caption for a video file.&lt;/Caption&gt;<br/>    &lt;Description&gt;<br/>        &lt;Paragraph&gt;A line of description.<br/>            And continuation of the line.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;More description.&lt;/Paragraph&gt;<br/>    &lt;/Description&gt;<br/>&lt;/MediaContent&gt;</Paragraph></ProgramListing>
-        <Paragraph>The block can also be empty of caption and description text. <i>If there is any text in the body of the admonition, the first line is mapped onto an OU-XML <ComputerCode>&lt;Caption&gt;</ComputerCode> element.</i></Paragraph>
-        <Paragraph>The MyST spec also lets you use a video file path in a <ComputerCode>{figure}</ComputerCode> admonition when generating HTML output, but this is not support for conversion to OU-XML. There is a also a <a href="https://github.com/sphinx-contrib/youtube"><ComputerCode>sphinx-contrib/youtube</ComputerCode></a> extension for embedding videos, but again there is no direct path for generating an appropriate OU-XML media tag.</Paragraph>
+        <Paragraph>The MyST spec also lets you use a video file path in a <ComputerCode>{figure}</ComputerCode> admonition when generating HTML output, but this is not (yet?) supported for conversion to OU-XML. There is a also a <a href="https://github.com/sphinx-contrib/youtube"><ComputerCode>sphinx-contrib/youtube</ComputerCode></a> extension for embedding videos, but again there is no direct path for generating an appropriate OU-XML media tag.</Paragraph>
         <Paragraph><i>TO DO: how does OU-XML recommend YouTube embeds?</i></Paragraph>
+        <Paragraph><i>TO DO: support MyST generated video embeds in conversion to OU-XML.</i></Paragraph>
     </Session>
     <Session id="activities-and-exercises-ou-activity-admonition">
         <Title>3 Activities and Exercises — <ComputerCode>ou-activity</ComputerCode> admonition</Title>
@@ -99,6 +96,7 @@
             <Paragraph>Activities have two parts - the activity description, and the activity answer.</Paragraph>
             <Paragraph>Activities are defined as:</Paragraph>
             <ProgramListing><Paragraph>```{ou-activity} Activity 1<br/>:timing: 1 hour<br/><br/>Do something...<br/>```</Paragraph></ProgramListing>
+            <Paragraph>This currently renders to HTML as:</Paragraph>
             <Activity>
                 <Heading>
 Activity 1                </Heading>
@@ -106,8 +104,11 @@ Activity 1                </Heading>
 1 hour                </Timing>
                 <Question><Paragraph>Do something…</Paragraph>
             </Question></Activity>
+            <Paragraph>This generates the following OU-XML (leaeding and trailing whitespace imside a tag is typically ignored; <i>but I do need to try to tidy this up…</i>):</Paragraph>
+            <ProgramListing><Paragraph>&lt;Activity&gt;<br/>    &lt;Heading&gt;<br/>Activity 1                &lt;/Heading&gt;<br/>    &lt;Timing&gt;<br/>1 hour                &lt;/Timing&gt;<br/>    &lt;Question&gt;<br/>        &lt;Paragraph&gt;Do something…&lt;/Paragraph&gt;<br/>    &lt;/Question&gt;<br/>&lt;/Activity&gt;</Paragraph></ProgramListing>
             <Paragraph>Activities can optionally include an answer:</Paragraph>
             <ProgramListing><Paragraph>````{ou-activity} Activity 2<br/>Do something else...<br/><br/>```{ou-answer}<br/>Here is the second activity answer.<br/><br/>And *more* bits of answer.<br/>```<br/><br/>````</Paragraph></ProgramListing>
+            <Paragraph>This is currently rednered inside an HTML page as:</Paragraph>
             <Activity>
                 <Heading>
 Activity 2                </Heading>
@@ -117,10 +118,15 @@ Activity 2                </Heading>
                     <Paragraph>And <i>more</i> bits of answer.</Paragraph>
                 </Answer>
             </Activity>
+            <Paragraph>The genereated OU-XML is:</Paragraph>
+            <ProgramListing><Paragraph>&lt;Activity&gt;<br/>    &lt;Heading&gt;<br/>Activity 2                &lt;/Heading&gt;<br/>    &lt;Question&gt;&lt;Paragraph&gt;Do something else…&lt;/Paragraph&gt;<br/>    &lt;/Question&gt;&lt;Answer&gt;<br/>        &lt;Paragraph&gt;Here is the second activity answer.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;And &lt;i&gt;more&lt;/i&gt; bits of answer.&lt;/Paragraph&gt;<br/>    &lt;/Answer&gt;<br/>&lt;/Activity&gt;</Paragraph></ProgramListing>
             <Paragraph>Ideally we should also have an identifier associated woth the activity, not least so we can provide a cross-reference link to the activity.</Paragraph>
         </InternalSection>
         <InternalSection id="exercises">
             <Heading>Exercises</Heading>
+            <Paragraph>Exercies are also supported, and are distinct fron those supported by the <ComputerCode>sphinx-exercise</ComputerCode> extension:</Paragraph>
+            <ProgramListing><Paragraph>```{ou-exercise} Exercise 1<br/>:timing: 1 hour<br/><br/>Do something...<br/>```</Paragraph></ProgramListing>
+            <Paragraph>This is rendered in an HTML page as:</Paragraph>
             <Exercise>
                 <Heading>
 Exercise 1                </Heading>
@@ -128,6 +134,11 @@ Exercise 1                </Heading>
 1 hour                </Timing>
                 <Question><Paragraph>Do something…</Paragraph>
             </Question></Exercise>
+            <Paragraph>and generates the following OU-XML:</Paragraph>
+            <ProgramListing><Paragraph>&lt;Exercise&gt;<br/>    &lt;Heading&gt;<br/>Exercise 1                &lt;/Heading&gt;<br/>    &lt;Timing&gt;<br/>1 hour                &lt;/Timing&gt;<br/>    &lt;Question&gt;&lt;Paragraph&gt;Do something…&lt;/Paragraph&gt;<br/>&lt;/Question&gt;&lt;/Exercise&gt;</Paragraph></ProgramListing>
+            <Paragraph>Exercises may also contain answers:</Paragraph>
+            <ProgramListing><Paragraph><br/>````{ou-exercise} Exercise 2<br/>:timing: 15 minutes<br/>Do something else...<br/><br/>```{ou-answer}<br/>Here is the second activity answer.<br/><br/>And *more* bits of answer.<br/>```<br/>````</Paragraph></ProgramListing>
+            <Paragraph>This renders inside an HTML page as:</Paragraph>
             <Exercise>
                 <Heading>
 Exercise 2                </Heading>
@@ -139,7 +150,11 @@ Exercise 2                </Heading>
                     <Paragraph>And <i>more</i> bits of answer.</Paragraph>
                 </Answer>
             </Exercise>
+            <Paragraph>and as is transformed to the following OU-XML:</Paragraph>
+            <ProgramListing><Paragraph>&lt;Exercise&gt;<br/>    &lt;Heading&gt;<br/>Exercise 2                &lt;/Heading&gt;<br/>    &lt;Timing&gt;<br/>15 minutes                &lt;/Timing&gt;<br/>    &lt;Question&gt;&lt;Paragraph&gt;Do something else…&lt;/Paragraph&gt;<br/>    &lt;/Question&gt;&lt;Answer&gt;<br/>        &lt;Paragraph&gt;Here is the second activity answer.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;And &lt;i&gt;more&lt;/i&gt; bits of answer.&lt;/Paragraph&gt;<br/>    &lt;/Answer&gt;<br/>&lt;/Exercise&gt;</Paragraph></ProgramListing>
             <Paragraph>We can also have a discussion block:</Paragraph>
+            <ProgramListing><Paragraph>````{ou-exercise} Exercise 3<br/>:timing: 15 minutes<br/>Do something else...<br/><br/>```{ou-discussion}<br/>Here is the third exercise discussion.<br/><br/>And *more* bits of discussion.<br/>```<br/>````</Paragraph></ProgramListing>
+            <Paragraph>rendered into an HTML page as follows:</Paragraph>
             <Exercise>
                 <Heading>
 Exercise 3                </Heading>
@@ -151,7 +166,11 @@ Exercise 3                </Heading>
                     <Paragraph>And <i>more</i> bits of discussion.</Paragraph>
                 </Discussion>
             </Exercise>
+            <Paragraph>And with corresponding OU-XML:</Paragraph>
+            <ProgramListing><Paragraph>&lt;Exercise&gt;<br/>    &lt;Heading&gt;<br/>Exercise 3                &lt;/Heading&gt;<br/>    &lt;Timing&gt;<br/>15 minutes                &lt;/Timing&gt;<br/>    &lt;Question&gt;&lt;Paragraph&gt;Do something else…&lt;/Paragraph&gt;<br/>    &lt;/Question&gt;&lt;Discussion&gt;<br/>        &lt;Paragraph&gt;Here is the third exercise discussion.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;And &lt;i&gt;more&lt;/i&gt; bits of discussion.&lt;/Paragraph&gt;<br/>    &lt;/Discussion&gt;<br/>&lt;/Exercise&gt;</Paragraph></ProgramListing>
             <Paragraph>Or an answer and a discussion block:</Paragraph>
+            <ProgramListing><Paragraph>````{ou-exercise} Exercise 4<br/>:timing: 1 hour<br/>Do something else...<br/><br/>```{ou-answer}<br/>Here is the fourth exercise answer.<br/><br/>And *more* bits of answer.<br/>```<br/><br/>```{ou-discussion}<br/>Here is the fourth exercise discussion.<br/><br/>And *more* bits of discussion.<br/>```<br/><br/>````</Paragraph></ProgramListing>
+            <Paragraph>which is rendered into an HTML page as:</Paragraph>
             <Exercise>
                 <Heading>
 Exercise 4                </Heading>
@@ -167,13 +186,15 @@ Exercise 4                </Heading>
                     <Paragraph>And <i>more</i> bits of discussion.</Paragraph>
                 </Discussion>
             </Exercise>
+            <Paragraph>and to the following OU-XML:</Paragraph>
+            <ProgramListing><Paragraph>&lt;Exercise&gt;<br/>    &lt;Heading&gt;<br/>Exercise 4                &lt;/Heading&gt;<br/>    &lt;Timing&gt;<br/>1 hour                &lt;/Timing&gt;<br/>    &lt;Question&gt;&lt;Paragraph&gt;Do something else…&lt;/Paragraph&gt;<br/>    &lt;/Question&gt;&lt;Answer&gt;<br/>        &lt;Paragraph&gt;Here is the fourth exercise answer.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;And &lt;i&gt;more&lt;/i&gt; bits of answer.&lt;/Paragraph&gt;<br/>    &lt;/Answer&gt;<br/>    &lt;Discussion&gt;<br/>        &lt;Paragraph&gt;Here is the fourth exercise discussion.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;And &lt;i&gt;more&lt;/i&gt; bits of discussion.&lt;/Paragraph&gt;<br/>    &lt;/Discussion&gt;<br/>&lt;/Exercise&gt;</Paragraph></ProgramListing>
         </InternalSection>
     </Session>
     <Session id="styled-code">
         <Title>4 Styled code</Title>
         <Paragraph>The OU-XML code rendering does not support style code by default, so we have to use a workaround when rendering styled code to the VLE.</Paragraph>
-        <Paragraph>The <ComputerCode>{ou-codestyle}</ComputerCode> admonition block allows us to individually style code blocks using <ComputerCode>prism.js</ComputerCode>:</Paragraph>
-        <MediaContent type="html5" height="400" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html0.zip" id="b96b5322ceb74bb3a55b"/>
+        <Paragraph>The <ComputerCode>{ou-codestyle}</ComputerCode> admonition block allows us to individually style code blocks using <ComputerCode>prism.js</ComputerCode> and is rendered into an HTML page as follows:</Paragraph>
+        <MediaContent type="html5" height="400" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html0.zip" id="da4fbbfdc7c44608892d"/>
         <Paragraph>Pass the language name in to define the language pack styling.</Paragraph>
         <Paragraph>The result is an HTML5 zipped bundle that renders the styled program listing in an iframe.</Paragraph>
         <Paragraph>Here’s an example of the generated OU-XML:</Paragraph>
@@ -194,28 +215,28 @@ Exercise 4                </Heading>
         <Paragraph>We can then use a markdown admonition such as the following to generate an interactive widget that lets us interactively visualise the molecule:</Paragraph>
         <ProgramListing><Paragraph>```{ou-mol3d} pdb:1ubq<br/>:style: '{"sphere":{"radius":"0.5"}}'<br/>```</Paragraph></ProgramListing>
         <Paragraph>to embed an interactive JavaScript powered viewer such as the following (click then drag in the widget below to rotate the rendered molecule; mouse/touchpad controls should also let you zoom in and out):</Paragraph>
-        <MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="d8f428cbda1342658cb6"/>
+        <MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="ccd156515ae84019bab1"/>
         <Paragraph><i>Note that the style information must be presented as a quoted string and take the form of a valid JSON string.</i></Paragraph>
-        <Paragraph>Renders to the following OU-XML:</Paragraph>
+        <Paragraph>The admonition block is converted to the following OU-XML:</Paragraph>
         <ProgramListing><Paragraph>&lt;MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="f06b147c75474dcdb6f5"/&gt;</Paragraph></ProgramListing>
         <Paragraph>The <ComputerCode>.zip</ComputerCode> file and its contents are automatically generated based on the contents of the admonition block.</Paragraph>
         <Paragraph><i>It would perhaps be usedul to try to follow the model of embedded audio and video players and also support captions, additional description text, etc. It may also make sense to automatically number this sort of embedded asset as a figure, or perhaps create an “Interactive Figure” type and associated numbering scheme?</i></Paragraph>
     </Session>
     <Session id="generating-ou-xml">
         <Title>7 Generating OU-XML</Title>
-        <Paragraph>Generating OU-XML is two part process and requires the additional installation of</Paragraph>
+        <Paragraph>Generating OU-XML is two part process and requires the additional installation of the <a href="https://github.com/innovationOUtside/ou-xml-validator/"><ComputerCode>ou-xml-validator</ComputerCode> package</a>:</Paragraph>
+        <Paragraph><ComputerCode>pip install git+https://github.com/innovationOUtside/ou-xml-validator.git</ComputerCode></Paragraph>
         <Paragraph>The first step is to use Jupyter Book tooling to generate a Sphinx XML version of the Jupyter Book, as defined by the <ComputerCode>_toc.yml</ComputerCode> and <ComputerCode>_config.yml</ComputerCode> files:</Paragraph>
         <Paragraph><ComputerCode>jb build PATH_TO_BOOK_SRC --builder custom --custom-builder xml</ComputerCode></Paragraph>
         <Paragraph>This generates XML files in the default <ComputerCode>_build/xml</ComputerCode> directory.</Paragraph>
-        <Paragraph>The second step is to use the <ComputerCode>ouseful_obt</ComputerCode> command-line tool from the <a href="https://github.com/innovationOUtside/ou-xml-validator/"><ComputerCode>ou-xml-validator</ComputerCode> package</a>:</Paragraph>
-        <Paragraph><ComputerCode>pip install git+https://github.com/innovationOUtside/ou-xml-validator.git</ComputerCode></Paragraph>
+        <Paragraph>The second step is to use the <ComputerCode>ouseful_obt</ComputerCode> command-line tool from the <ComputerCode>ou-xml-validator</ComputerCode> package:</Paragraph>
         <Paragraph><ComputerCode>ouseful_obt PATH_TO_BOOK_SRC</ComputerCode></Paragraph>
-        <Paragraph>*Note that this currently requires several <ComputerCode>ou</ComputerCode> parameters to be set, otherwise an error will be raised.</Paragraph>
+        <Paragraph><i>Note that this currently requires several <ComputerCode>ou</ComputerCode> parameters to be set in the Sphinx <ComputerCode>_config.yml</ComputerCode> file, otherwise an error will be raised.</i></Paragraph>
         <Paragraph>Example <ComputerCode>ou</ComputerCode> settings in <ComputerCode>_config.yml</ComputerCode>:</Paragraph>
         <ProgramListing><Paragraph>ou:</Paragraph><Paragraph>  module_code: OUSEFUL-DEMO-SPHINX</Paragraph><Paragraph>  module_title: sphinxcontrib-ou-xml-tags</Paragraph><Paragraph>  block: 0</Paragraph><Paragraph>  presentation: X</Paragraph><Paragraph>  first_published: 2024</Paragraph><Paragraph>  isbn:</Paragraph><Paragraph>  edition:</Paragraph><Paragraph>  block_title: Examples</Paragraph><Paragraph>  image_path_prefix: https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/</Paragraph><Paragraph>  media_path_prefix: https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/</Paragraph><Paragraph>  codestyle: false</Paragraph><Paragraph>  codelang:</Paragraph><Paragraph>  codesnippet_theme: light # light | dark</Paragraph><Paragraph>  validate: true # validate generated OU-XML in toolchain</Paragraph><Paragraph></Paragraph></ProgramListing>
         <Paragraph>Generated OU-XML content in the <ComputerCode>_build/ouxml</ComputerCode> directory can then be validated against an OU-XML schema by running the command:</Paragraph>
         <Paragraph><ComputerCode>ou_xml_validator validate path/to/testme.xml</ComputerCode></Paragraph>
-        <Paragraph>See an example of the XML generated for this documentation <UnknownTag>reference</UnknownTag>.</Paragraph>
+        <Paragraph>See an example of the XML generated for this documentation <a href="https://innovationoutside.github.io/sphinxcontrib-ou-xml-tags/ouxml/index.xml">here</a>.</Paragraph>
     </Session>
     <BackMatter/>
   </Unit>
