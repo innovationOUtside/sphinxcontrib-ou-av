@@ -2,7 +2,7 @@
 
 The OU-XML code rendering does not support style code by default, so we have to use a workaround when rendering styled code to the VLE.
 
-The `{ou-codestyle}` admonition block allows us to individually style code blocks using `prism.js`:
+The `{ou-codestyle}` admonition block allows us to individually style code blocks using `prism.js` and is rendered into an HTML page as follows:
 
 ```{ou-codestyle} python
 # some code

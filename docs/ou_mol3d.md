@@ -24,7 +24,7 @@ to embed an interactive JavaScript powered viewer such as the following (click t
 
 *Note that the style information must be presented as a quoted string and take the form of a valid JSON string.*
 
-Renders to the following OU-XML:
+The admonition block is converted to the following OU-XML:
 
 ```xml
 <MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="f06b147c75474dcdb6f5"/>

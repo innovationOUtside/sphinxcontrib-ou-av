@@ -1,6 +1,8 @@
 # Generating OU-XML
 
-Generating OU-XML is two part process and requires the additional installation of 
+Generating OU-XML is two part process and requires the additional installation of the [`ou-xml-validator` package](https://github.com/innovationOUtside/ou-xml-validator/):
+
+`pip install git+https://github.com/innovationOUtside/ou-xml-validator.git`
 
 The first step is to use Jupyter Book tooling to generate a Sphinx XML version of the Jupyter Book, as defined by the `_toc.yml` and `_config.yml` files:
 
@@ -8,13 +10,11 @@ The first step is to use Jupyter Book tooling to generate a Sphinx XML version o
 
 This generates XML files in the default `_build/xml` directory.
 
-The second step is to use the `ouseful_obt` command-line tool from the [`ou-xml-validator` package](https://github.com/innovationOUtside/ou-xml-validator/):
-
-`pip install git+https://github.com/innovationOUtside/ou-xml-validator.git`
+The second step is to use the `ouseful_obt` command-line tool from the `ou-xml-validator` package:
 
 `ouseful_obt PATH_TO_BOOK_SRC`
 
-*Note that this currently requires several `ou` parameters to be set, otherwise an error will be raised.
+*Note that this currently requires several `ou` parameters to be set in the Sphinx `_config.yml` file, otherwise an error will be raised.*
 
 Example `ou` settings in `_config.yml`:
 
@@ -41,4 +41,4 @@ Generated OU-XML content in the `_build/ouxml` directory can then be validated a
 
 `ou_xml_validator validate path/to/testme.xml`
 
-See an example of the XML generated for this documentation [here](ouxml/index.xml).
+See an example of the XML generated for this documentation [here](https://innovationoutside.github.io/sphinxcontrib-ou-xml-tags/ouxml/index.xml).

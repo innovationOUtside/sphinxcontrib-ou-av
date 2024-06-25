@@ -13,6 +13,8 @@ More description.
 ```
 ````
 
+This is rendered inside an HTML page as:
+
 ```{ou-video} resources/test.mp4
 A caption for a video file.
 
@@ -22,7 +24,7 @@ And continuation of the line.
 More description.
 ```
 
-Renders to the following OU-XML:
+The corresponding OU-XML is:
 
 ```xml
 <MediaContent type="video" height="" width="" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4">
