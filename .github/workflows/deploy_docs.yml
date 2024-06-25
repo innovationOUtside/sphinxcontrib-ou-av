@@ -21,10 +21,15 @@ jobs:
     - name: Install dependencies
       run: |
         pip install jupyter-book ou-jupyter-book-tools .
+        pip install git+https://github.com/innovationOUtside/ou-xml-validator.git
     # Build the book
     - name: Build the book
       run: |
         jupyter-book build docs
+    - name: Generate OU-XML
+      run: |
+        jb build docs --builder custom --custom-builder xml
+        ouseful_obt docs
         cp -rf docs/_build/ouxml ./_build/html
         mv ./_build/html/ouxml/ouseful-demo-sphinx_0.xml ./_build/html/ouxml/index.xml 
     # Push the book's HTML to github-pages

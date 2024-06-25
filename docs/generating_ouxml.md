@@ -10,6 +10,8 @@ This generates XML files in the default `_build/xml` directory.
 
 The second step is to use the `ouseful_obt` command-line tool from the [`ou-xml-validator` package](https://github.com/innovationOUtside/ou-xml-validator/):
 
+`pip install git+https://github.com/innovationOUtside/ou-xml-validator.git`
+
 `ouseful_obt PATH_TO_BOOK_SRC`
 
 *Note that this currently requires several `ou` parameters to be set, otherwise an error will be raised.
