@@ -6,16 +6,15 @@ Originally based on https://github.com/sphinx-contrib/video/
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from urllib.parse import urlparse
+import urllib
 
-import os
-import warnings
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective, SphinxTranslator
-from sphinx.util.osutil import copyfile
+from sphinx.transforms.post_transforms import SphinxPostTransform
 
 __author__ = "Raphael Massabot & Tony Hirst"
 __version__ = "0.0.2"
@@ -34,13 +33,12 @@ SUPPORTED_OPTIONS: List[str] = [
     "controls",
     "loop",
     "muted",
-    "preload",
-    "src",
+    "preload"
 ]
 "List of the supported options attributes"
 
 
-def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
+def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str, bool]:
     """Return audio and suffix.
 
     Raise a warning if not supported but do not stop the computation.
@@ -50,7 +48,7 @@ def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
         env: the build environment
 
     Returns:
-        the src file, the extension suffix
+        the src file, the extension suffix, and whether file is remote
     """
 
     # TH: what does this do??
@@ -65,7 +63,16 @@ def get_audio(src: str, env: BuildEnvironment) -> Tuple[str, str]:
         )
     type = SUPPORTED_MIME_TYPES.get(suffix, "")
 
-    return (src, type)
+    is_remote = bool(urlparse(src).netloc)
+    if not is_remote:
+        # Map video paths to unique names (so that they can be put into a single
+        # directory). This copies what is done for images by the process_docs method of
+        # sphinx.environment.collectors.asset.ImageCollector.
+        src, fullpath = env.relfn2path(src, env.docname)
+        env.note_dependency(fullpath)
+        env.images.add_file(env.docname, src)
+
+    return (src, type, is_remote)
 
 
 class ou_audio(nodes.General, nodes.Element):
@@ -90,7 +97,6 @@ class Audio(SphinxDirective):
         "muted": directives.flag,
         "preload": directives.unchanged,
         "class": directives.unchanged,
-        "src": directives.unchanged,
     }
 
     def run(self) -> List[ou_audio]:
@@ -106,23 +112,11 @@ class Audio(SphinxDirective):
             preload = "auto"
 
         # Get the asset location
-        _src = get_audio(self.arguments[0], env)
-        # Copy the media asset over to the build directory
-        # _src[0] is the filename; _src[1] the mime type
-        if not bool(urlparse(_src[0]).netloc):
-            outpath = os.path.join(env.app.builder.outdir, _src[0])
-            dirpath = os.path.dirname(outpath)
-            if dirpath:
-                os.makedirs(dirpath, exist_ok=True)
-            if Path(_src[0]).exists():
-                copyfile(_src[0], outpath)
-            else:
-                warning_message = (
-                f"The source file '{_src[0]}' does not exist. No file copied for audio admonition."
-                )
-                warnings.warn(warning_message, UserWarning)
+        sources = [get_audio(self.arguments[0], env)]
+
         _ou_audio = ou_audio(
-            src=_src[0],
+            src=sources[0][0],
+            sources=sources,
             autoplay="autoplay" in self.options,
             controls="nocontrols" not in self.options,
             loop="loop" in self.options,
@@ -130,7 +124,7 @@ class Audio(SphinxDirective):
             preload=preload,
             klass=self.options.get("class", ""),
         )
-        # THe following is cribbed from Jupyter Book and adds a caption etc
+        # The following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
         if self.content:
             node = nodes.Element()  # anonymous container for parsing
@@ -146,6 +140,32 @@ class Audio(SphinxDirective):
         return [_ou_audio]
 
 
+class AudioPostTransform(SphinxPostTransform):
+    """Ensure audio files are copied to build directory.
+
+    This copies what is done for images in the post_process_image method of
+    sphinx.builders.Builder, except as a Transform since we can't hook into that method
+    directly.
+    """
+
+    default_priority = 200
+
+    def run(self):
+        """Add audio files to Builder's image tracking.
+
+        Doing so ensures that the builder copies the files to the output directory.
+        """
+        traverse_or_findall = (
+            self.document.findall
+            if hasattr(self.document, "findall")
+            else self.document.traverse
+        )
+        for node in traverse_or_findall(ou_audio):
+            for src, _, is_remote in node["sources"]:
+                if not is_remote:
+                    self.app.builder.images[src] = self.env.images[src][1]
+
+
 def visit_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
     """Entry point of the html audio node."""
     # start the audio block
@@ -153,6 +173,21 @@ def visit_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
     if node["klass"]:  # klass need to be special cased
         attr += [f"class=\"{node['klass']}\""]
     html: str = f"<audio {' '.join(attr)}>"
+
+    # build the sources
+    builder = translator.builder
+    html_source = '<source src="{}" type="{}">'
+    for src, type_, _ in node["sources"]:
+        # Rewrite the URI if the environment knows about it, as is done for images in the
+        # HTML5 builder, in sphinx.writers.html5.HTML5Translator.visit_image.
+        if src in builder.images:
+            src = Path(
+                builder.imgpath, urllib.parse.quote(builder.images[src])
+            ).as_posix()
+        html += html_source.format(src, type_)
+
+    # add the alternative message
+    #html += node["alt"]
 
     translator.body.append(html)
 
@@ -164,7 +199,9 @@ def depart_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
 
 def visit_ou_audio_unsupported(translator: SphinxTranslator, node: ou_audio) -> None:
     """Entry point of the ignored audio node."""
-    logger.warning(f"audio {node['src']}: unsupported output format (node skipped)")
+    logger.warning(
+        f"audio {node['sources'][0][0]}: unsupported output format (node skipped)"
+    )
     raise nodes.SkipNode
 
 
@@ -181,6 +218,8 @@ def setup(app: Sphinx) -> Dict[str, bool]:
         text=(visit_ou_audio_unsupported, None),
     )
     app.add_directive("ou-audio", Audio)
+    # Cribbed from https://github.com/sphinx-contrib/video/blob/master/sphinxcontrib/video/__init__.py
+    app.add_post_transform(AudioPostTransform)
 
     return {
         "parallel_read_safe": True,

@@ -6,16 +6,15 @@ Derived from audio.py in this extrension
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 from urllib.parse import urlparse
+import urllib
 
-import os
-import warnings
 from docutils import nodes
 from docutils.parsers.rst import directives
 from sphinx.application import Sphinx
 from sphinx.environment import BuildEnvironment
 from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective, SphinxTranslator
-from sphinx.util.osutil import copyfile
+from sphinx.transforms.post_transforms import SphinxPostTransform
 
 __author__ = "Raphael Massabot & Tony Hirst"
 __version__ = "0.0.1"
@@ -29,7 +28,6 @@ SUPPORTED_MIME_TYPES: Dict[str, str] = {
 "Supported mime types of the link tag"
 
 SUPPORTED_OPTIONS: List[str] = [
-    "src",
     "autoplay",
     "controls",
     "height",
@@ -42,7 +40,7 @@ SUPPORTED_OPTIONS: List[str] = [
 "List of the supported options attributes"
 
 
-def get_video(src: str, env: BuildEnvironment) -> Tuple[str, str]:
+def get_video(src: str, env: BuildEnvironment) -> Tuple[str, str, bool]:
     """Return video and suffix.
 
     Raise a warning if not supported but do not stop the computation.
@@ -52,7 +50,7 @@ def get_video(src: str, env: BuildEnvironment) -> Tuple[str, str]:
         env: the build environment
 
     Returns:
-        the src file, the extension suffix
+        the src file, the extension suffix and whether file is remote
     """
 
     suffix = Path(src).suffix
@@ -62,7 +60,16 @@ def get_video(src: str, env: BuildEnvironment) -> Tuple[str, str]:
         )
     type = SUPPORTED_MIME_TYPES.get(suffix, "")
 
-    return (src, type)
+    is_remote = bool(urlparse(src).netloc)
+    if not is_remote:
+        # Map video paths to unique names (so that they can be put into a single
+        # directory). This copies what is done for images by the process_docs method of
+        # sphinx.environment.collectors.asset.ImageCollector.
+        src, fullpath = env.relfn2path(src, env.docname)
+        env.note_dependency(fullpath)
+        env.images.add_file(env.docname, src)
+
+    return (src, type, is_remote)
 
 
 class ou_video(nodes.General, nodes.Element):
@@ -105,34 +112,22 @@ class Video(SphinxDirective):
             preload = "auto"
 
         # Get the asset location
-        _src = get_video(self.arguments[0], env)
-        #Copy the media asset over to the build directory
-        # _src[0] is the filename; _src[1] the mime type
-        if not bool(urlparse(_src[0]).netloc):
-            outpath = os.path.join(env.app.builder.outdir,_src[0])
-            dirpath = os.path.dirname(outpath)
-            if dirpath:
-                os.makedirs(dirpath, exist_ok=True)
-            if Path(_src[0]).exists():
-                copyfile(_src[0], outpath)
-            else:
-                warning_message = (
-                f"The source file '{_src[0]}' does not exist. No file copied for video admonition."
-                )
-                warnings.warn(warning_message, UserWarning)
+        sources = [get_video(self.arguments[0], env)]
+
         _ou_video = ou_video(
-                src=_src[0],
-                alt=self.options.get("alt", ""),
-                autoplay="autoplay" in self.options,
-                controls="nocontrols" not in self.options,
-                loop="loop" in self.options,
-                muted="muted" in self.options,
-                poster=self.options.get("poster", ""),
-                preload=preload,
-                klass=self.options.get("class", ""),
-                height=self.options.get("height", ""),
-                width=self.options.get("width","")
-            )
+            src=sources[0][0],
+            sources=sources,
+            alt=self.options.get("alt", ""),
+            autoplay="autoplay" in self.options,
+            controls="nocontrols" not in self.options,
+            loop="loop" in self.options,
+            muted="muted" in self.options,
+            poster=self.options.get("poster", ""),
+            preload=preload,
+            klass=self.options.get("class", ""),
+            height=self.options.get("height", ""),
+            width=self.options.get("width", ""),
+        )
         # THe following is cribbed from Jupyter Book and adds a caption etc
         # https://github.com/executablebooks/MyST-NB/blob/9ddc821933826a7fd2ea9bbda1741f4f3977eb7e/myst_nb/ext/eval/__init__.py#L193C9-L201C39
         if self.content:
@@ -151,11 +146,54 @@ class Video(SphinxDirective):
         ]
 
 
+class VideoPostTransform(SphinxPostTransform):
+    """Ensure video files are copied to build directory.
+
+    This copies what is done for images in the post_process_image method of
+    sphinx.builders.Builder, except as a Transform since we can't hook into that method
+    directly.
+    """
+
+    default_priority = 200
+
+    def run(self):
+        """Add video files to Builder's image tracking.
+
+        Doing so ensures that the builder copies the files to the output directory.
+        """
+        # TODO: This check can be removed when the minimum supported docutils version
+        # is docutils>=0.18.1.
+        traverse_or_findall = (
+            self.document.findall
+            if hasattr(self.document, "findall")
+            else self.document.traverse
+        )
+        for node in traverse_or_findall(ou_video):
+            for src, _, is_remote in node["sources"]:
+                if not is_remote:
+                    self.app.builder.images[src] = self.env.images[src][1]
+
+
 def visit_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
     """Entry point of the html video node."""
     # start the video block
     attr: List[str] = [f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if node[k]]
     html: str = f"<video {' '.join(attr)}>"
+
+    # build the sources
+    builder = translator.builder
+    html_source = '<source src="{}" type="{}">'
+    for src, type_, _ in node["sources"]:
+        # Rewrite the URI if the environment knows about it, as is done for images in the
+        # HTML5 builder, in sphinx.writers.html5.HTML5Translator.visit_image.
+        if src in builder.images:
+            src = Path(
+                builder.imgpath, urllib.parse.quote(builder.images[src])
+            ).as_posix()
+        html += html_source.format(src, type_)
+
+    # add the alternative message
+    # html += node["alt"]
 
     translator.body.append(html)
 
@@ -168,14 +206,14 @@ def depart_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
 def visit_ou_video_unsupported(translator: SphinxTranslator, node: ou_video) -> None:
     """Entry point of the ignored video node."""
     logger.warning(
-        f"video {node['src']}: unsupported output format (node skipped)"
+        f"video {node['sources'][0][0]}: unsupported output format (node skipped)"
     )
     raise nodes.SkipNode
 
 
 def setup(app: Sphinx) -> Dict[str, bool]:
     """Add video node and parameters to the Sphinx builder."""
-    #app.add_config_value("video_enforce_extra_source", False, "html")
+    # app.add_config_value("video_enforce_extra_source", False, "html")
     app.add_node(
         ou_video,
         html=(visit_ou_video_html, depart_ou_video_html),
@@ -186,6 +224,7 @@ def setup(app: Sphinx) -> Dict[str, bool]:
         text=(visit_ou_video_unsupported, None),
     )
     app.add_directive("ou-video", Video)
+    app.add_post_transform(VideoPostTransform)
 
     return {
         "parallel_read_safe": True,
