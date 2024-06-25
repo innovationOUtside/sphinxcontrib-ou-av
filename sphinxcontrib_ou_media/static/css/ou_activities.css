@@ -49,33 +49,32 @@
         margin-bottom: 0;
     }
 
-    .ou-activity-answer-content {
+
+.ou-activity-answer-content {
     display: block;
-    background-color: #e6f3ff; /* Light blue background */
-    padding: 15px; /* Add some padding for better appearance */
-    border-radius: 5px; /* Optional: rounds the corners */
-    }
-
-
-    .ou-activity-answer-content.ou-hidden {
-    display: none;
-    }
-
-    .ou-toggle .ou-toggle-hide {
-    display: none;
-    }
-
-    .ou-toggle .ou-toggle-show {
-    display: inline;
-    }
-
-    .ou-toggle.ou-toggle-hidden .ou-toggle-show {
-    display: inline;
-    }
-
-    .ou-toggle.ou-toggle-hidden .ou-toggle-hide {
-    display: none;
-    }
-
+    background-color: #e6f3ff;
+    padding: 15px;
+    border-radius: 5px;
 }
 
+.ou-activity-answer-content.ou-hidden {
+    display: none;
+}
+
+.ou-toggle .ou-toggle-hide {
+    display: none;
+}
+
+.ou-toggle .ou-toggle-show {
+    display: inline;
+}
+
+.ou-toggle:not(.ou-toggle-hidden) .ou-toggle-show {
+    display: none;
+}
+
+.ou-toggle:not(.ou-toggle-hidden) .ou-toggle-hide {
+    display: inline;
+}
+
+}
