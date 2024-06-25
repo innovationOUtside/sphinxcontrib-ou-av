@@ -44,7 +44,7 @@ sphinx:
     - ou_book_theme
 ```
 
-The `ou_activity` extension also requires: `pip install ou-book-theme`.
+The `ou_activity` extension originally based on `ou-book-theme` and re-using styling elements from it.
 
 For more examples and discussion on how to use these extensions as part of an OU workflow, see [`reusable-content-example`](https://opencomputinglab.github.io/reusable-content-example/media_items.html).
 

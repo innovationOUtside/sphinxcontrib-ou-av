@@ -3,7 +3,6 @@
 :root {
     --ou-color-activity: 98, 191, 178;
 }
-
 .ou-activity {
     margin: 1.5625em auto;
     padding: 0 .6rem .8rem;
@@ -49,55 +48,34 @@
     > :last-child {
         margin-bottom: 0;
     }
-/*
-    .ou-activity-answer {
-        .ou-toggle {
-            margin-bottom: 1.5rem;
 
-            .ou-toggle-show {
-                display: none;
-            }
-
-            .ou-toggle-hide {
-                display: inline;
-            }
-
-            &.ou-toggle-hidden {
-                margin-bottom: 0.5rem;
-
-                .ou-toggle-show {
-                    display: inline;
-                }
-
-                .ou-toggle-hide {
-                    display: none;
-                }
-
-                + .ou-activity-answer-content {
-                    display: none;
-                }
-            }
-        }
+    .ou-activity-answer-content {
+    display: block;
+    background-color: #e6f3ff; /* Light blue background */
+    padding: 15px; /* Add some padding for better appearance */
+    border-radius: 5px; /* Optional: rounds the corners */
     }
-}
-*/
 
-.ou-activity-answer-content {
-  display: none;
+
+    .ou-activity-answer-content.ou-hidden {
+    display: none;
+    }
+
+    .ou-toggle .ou-toggle-hide {
+    display: none;
+    }
+
+    .ou-toggle .ou-toggle-show {
+    display: inline;
+    }
+
+    .ou-toggle.ou-toggle-hidden .ou-toggle-show {
+    display: inline;
+    }
+
+    .ou-toggle.ou-toggle-hidden .ou-toggle-hide {
+    display: none;
+    }
+
 }
 
-.ou-activity-answer-content.ou-hidden {
-  display: none;
-}
-
-.ou-toggle .ou-toggle-hide {
-  display: none;
-}
-
-.ou-toggle.ou-toggle-hidden .ou-toggle-show {
-  display: none;
-}
-
-.ou-toggle.ou-toggle-hidden .ou-toggle-hide {
-  display: inline;
-}
