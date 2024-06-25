@@ -2,3 +2,5 @@ build
 .DS_Store
 *.egg-info
 internal-packages
+.ipynb_checkpoints
+
