@@ -181,6 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ou_codestyle.html">Styled code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_html5.html">Embedding HTML5 bundles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_mol3d.html">Visualising molecules — <code class="docutils literal notranslate"><span class="pre">ou_mol3d</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="generating_ouxml.html">Generating OU-XML</a></li>
 </ul>
 
     </div>
@@ -351,7 +352,18 @@ More description.
 And continuation of the line.</p>
 <p>More description.</p>
 </div>
-</video><p>The block can also be empty of caption and description text. <em>If there is any text in the body of the admonition, the first line is mapped onto an OU-XML <code class="docutils literal notranslate"><span class="pre">&lt;Caption&gt;</span></code> element.</em></p>
+</video><p>Renders to the following OU-XML:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;MediaContent</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;video&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Caption&gt;</span>Figure<span class="w"> </span>2.1<span class="w"> </span>A<span class="w"> </span>caption<span class="w"> </span>for<span class="w"> </span>a<span class="w"> </span>video<span class="w"> </span>file.<span class="nt">&lt;/Caption&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Description&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>A<span class="w"> </span>line<span class="w"> </span>of<span class="w"> </span>description.
+<span class="w">            </span>And<span class="w"> </span>continuation<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>line.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Paragraph&gt;</span>More<span class="w"> </span>description.<span class="nt">&lt;/Paragraph&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Description&gt;</span>
+<span class="nt">&lt;/MediaContent&gt;</span>
+</pre></div>
+</div>
+<p>The block can also be empty of caption and description text. <em>If there is any text in the body of the admonition, the first line is mapped onto an OU-XML <code class="docutils literal notranslate"><span class="pre">&lt;Caption&gt;</span></code> element.</em></p>
 <p>The MyST spec also lets you use a video file path in a <code class="docutils literal notranslate"><span class="pre">{figure}</span></code> admonition when generating HTML output, but this is not support for conversion to OU-XML. There is a also a <a class="reference external" href="https://github.com/sphinx-contrib/youtube"><code class="docutils literal notranslate"><span class="pre">sphinx-contrib/youtube</span></code></a> extension for embedding videos, but again there is no direct path for generating an appropriate OU-XML media tag.</p>
 <p><em>TO DO: how does OU-XML recommend YouTube embeds?</em></p>
 </section>

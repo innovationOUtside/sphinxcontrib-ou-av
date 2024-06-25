@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Activities and Exercises — ou-activity admonition &#8212; sphinxcontrib-ou-xml-tags examples</title>
+    <title>Generating OU-XML &#8212; sphinxcontrib-ou-xml-tags examples</title>
   
   
   
@@ -60,11 +60,10 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'ou_activities';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'generating_ouxml';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Styled code" href="ou_codestyle.html" />
-    <link rel="prev" title="Embedded video — ou-video admonition" href="ou_video.html" />
+    <link rel="prev" title="Visualising molecules — ou_mol3d" href="ou_mol3d.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -177,11 +176,11 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="ou_audio.html">Audio Items — <code class="docutils literal notranslate"><span class="pre">ou-audio</span></code> admonition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_video.html">Embedded video — <code class="docutils literal notranslate"><span class="pre">ou-video</span></code> admonition</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Activities and Exercises — <code class="docutils literal notranslate"><span class="pre">ou-activity</span></code> admonition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ou_activities.html">Activities and Exercises — <code class="docutils literal notranslate"><span class="pre">ou-activity</span></code> admonition</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_codestyle.html">Styled code</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_html5.html">Embedding HTML5 bundles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_mol3d.html">Visualising molecules — <code class="docutils literal notranslate"><span class="pre">ou_mol3d</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="generating_ouxml.html">Generating OU-XML</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Generating OU-XML</a></li>
 </ul>
 
     </div>
@@ -236,7 +235,7 @@
       
       
       
-      <li><a href="_sources/ou_activities.md" target="_blank"
+      <li><a href="_sources/generating_ouxml.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -307,9 +306,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -320,20 +317,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Activities and Exercises — ou-activity admonition</h1>
+    <h1>Generating OU-XML</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activities">Activities</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -343,113 +331,37 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="activities-and-exercises-ou-activity-admonition">
-<h1>Activities and Exercises — <code class="docutils literal notranslate"><span class="pre">ou-activity</span></code> admonition<a class="headerlink" href="#activities-and-exercises-ou-activity-admonition" title="Link to this heading">#</a></h1>
-<p>OU-XML supports a range of styled activity types, including <em>activities</em>, <em>exercises</em>, <em>SAQ</em>s (self-assessment questions*) and <em>ITQ</em>s.</p>
-<section id="activities">
-<h2>Activities<a class="headerlink" href="#activities" title="Link to this heading">#</a></h2>
-<p><em>Activity rendering is broken in this extension at the moment due to a collision with the activity admonition handler that is baked into ou-theme. Ideally, that handler would be broken out into its own extension so the rest of the ou-theme can be deployed and the user given free choice over which activity handler to use.</em></p>
-<p>Activities have two parts - the activity description, and the activity answer.</p>
-<p>Activities are defined as:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>```{ou-activity} Activity 1
-:timing: 1 hour
-
-Do something...
-```
+  <section id="generating-ou-xml">
+<h1>Generating OU-XML<a class="headerlink" href="#generating-ou-xml" title="Link to this heading">#</a></h1>
+<p>Generating OU-XML is two part process and requires the additional installation of</p>
+<p>The first step is to use Jupyter Book tooling to generate a Sphinx XML version of the Jupyter Book, as defined by the <code class="docutils literal notranslate"><span class="pre">_toc.yml</span></code> and <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code> files:</p>
+<p><code class="docutils literal notranslate"><span class="pre">jb</span> <span class="pre">build</span> <span class="pre">PATH_TO_BOOK_SRC</span> <span class="pre">--builder</span> <span class="pre">custom</span> <span class="pre">--custom-builder</span> <span class="pre">xml</span></code></p>
+<p>This generates XML files in the default <code class="docutils literal notranslate"><span class="pre">_build/xml</span></code> directory.</p>
+<p>The second step is to use the <code class="docutils literal notranslate"><span class="pre">ouseful_obt</span></code> command-line tool from the <a class="reference external" href="https://github.com/innovationOUtside/ou-xml-validator/"><code class="docutils literal notranslate"><span class="pre">ou-xml-validator</span></code> package</a>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">git+https://github.com/innovationOUtside/ou-xml-validator.git</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">ouseful_obt</span> <span class="pre">PATH_TO_BOOK_SRC</span></code></p>
+<p>*Note that this currently requires several <code class="docutils literal notranslate"><span class="pre">ou</span></code> parameters to be set, otherwise an error will be raised.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">ou</span></code> settings in <code class="docutils literal notranslate"><span class="pre">_config.yml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">ou</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">module_code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OUSEFUL-DEMO-SPHINX</span>
+<span class="w">  </span><span class="nt">module_title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sphinxcontrib-ou-xml-tags</span>
+<span class="w">  </span><span class="nt">block</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="w">  </span><span class="nt">presentation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">X</span>
+<span class="w">  </span><span class="nt">first_published</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2024</span>
+<span class="w">  </span><span class="nt">isbn</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">edition</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">block_title</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Examples</span>
+<span class="w">  </span><span class="nt">image_path_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/</span>
+<span class="w">  </span><span class="nt">media_path_prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/</span>
+<span class="w">  </span><span class="nt">codestyle</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">codelang</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">codesnippet_theme</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">light</span><span class="w"> </span><span class="c1"># light | dark</span>
+<span class="w">  </span><span class="nt">validate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"> </span><span class="c1"># validate generated OU-XML in toolchain</span>
 </pre></div>
 </div>
-<div class="ou-activity docutils">
-<div class="ou-activity-title docutils">
-Activity 1</div>
-<div class="docutils">
-1 hour</div>
-<p>Do something…</p>
-</div>
-<p>Activities can optionally include an answer:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>````{ou-activity} Activity 2
-Do something else...
-
-```{ou-answer}
-Here is the second activity answer.
-
-And *more* bits of answer.
-```
-
-````
-</pre></div>
-</div>
-<div class="ou-activity docutils">
-<div class="ou-activity-title docutils">
-Activity 2</div>
-<p>Do something else…</p>
-<div class="ou-activity-answer ou-answer docutils">
-<hr/><button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button><div class="ou-activity-answer-content docutils">
-<hr/><button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button><div class="ou-activity-answer-content docutils">
-<p>Here is the second activity answer.</p>
-<p>And <em>more</em> bits of answer.</p>
-</div>
-</div>
-</div>
-</div>
-<p>Ideally we should also have an identifier associated woth the activity, not least so we can provide a cross-reference link to the activity.</p>
-</section>
-<section id="exercises">
-<h2>Exercises<a class="headerlink" href="#exercises" title="Link to this heading">#</a></h2>
-<div class="ou-activity docutils">
-<div class="ou-activity-title docutils">
-Exercise 1</div>
-<div class="docutils">
-1 hour</div>
-<p>Do something…</p>
-</div>
-<div class="ou-activity docutils">
-<div class="ou-activity-title docutils">
-Exercise 2</div>
-<div class="docutils">
-15 minutes</div>
-<p>Do something else…</p>
-<div class="ou-activity-answer ou-answer docutils">
-<hr/><button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button><div class="ou-activity-answer-content docutils">
-<hr/><button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button><div class="ou-activity-answer-content docutils">
-<p>Here is the second activity answer.</p>
-<p>And <em>more</em> bits of answer.</p>
-</div>
-</div>
-</div>
-</div>
-<p>We can also have a discussion block:</p>
-<div class="ou-activity docutils">
-<div class="ou-activity-title docutils">
-Exercise 3</div>
-<div class="docutils">
-15 minutes</div>
-<p>Do something else…</p>
-<div class="ou-discussion docutils">
-<p>Here is the third exercise discussion.</p>
-<p>And <em>more</em> bits of discussion.</p>
-</div>
-</div>
-<p>Or an answer and a discussion block:</p>
-<div class="ou-activity docutils">
-<div class="ou-activity-title docutils">
-Exercise 4</div>
-<div class="docutils">
-1 hour</div>
-<p>Do something else…</p>
-<div class="ou-activity-answer ou-answer docutils">
-<hr/><button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button><div class="ou-activity-answer-content docutils">
-<hr/><button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button><div class="ou-activity-answer-content docutils">
-<p>Here is the fourth exercise answer.</p>
-<p>And <em>more</em> bits of answer.</p>
-</div>
-</div>
-</div>
-<div class="ou-discussion docutils">
-<p>Here is the fourth exercise discussion.</p>
-<p>And <em>more</em> bits of discussion.</p>
-</div>
-</div>
-</section>
+<p>Generated OU-XML content in the <code class="docutils literal notranslate"><span class="pre">_build/ouxml</span></code> directory can then be validated against an OU-XML schema by running the command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ou_xml_validator</span> <span class="pre">validate</span> <span class="pre">path/to/testme.xml</span></code></p>
+<p>See an example of the XML generated for this documentation <a class="reference internal" href="#ouxml/index.xml"><span class="xref myst">here</span></a>.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -483,22 +395,13 @@ Exercise 4</div>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="ou_video.html"
+       href="ou_mol3d.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Embedded video — <code class="docutils literal notranslate"><span class="pre">ou-video</span></code> admonition</p>
+        <p class="prev-next-title">Visualising molecules — <code class="docutils literal notranslate"><span class="pre">ou_mol3d</span></code></p>
       </div>
-    </a>
-    <a class="right-next"
-       href="ou_codestyle.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Styled code</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -506,22 +409,6 @@ Exercise 4</div>
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#activities">Activities</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises">Exercises</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

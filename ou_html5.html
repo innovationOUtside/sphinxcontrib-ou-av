@@ -181,6 +181,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ou_codestyle.html">Styled code</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Embedding HTML5 bundles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ou_mol3d.html">Visualising molecules — <code class="docutils literal notranslate"><span class="pre">ou_mol3d</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="generating_ouxml.html">Generating OU-XML</a></li>
 </ul>
 
     </div>
@@ -333,7 +334,7 @@ document.write(`
                   
   <section id="embedding-html5-bundles">
 <h1>Embedding HTML5 bundles<a class="headerlink" href="#embedding-html5-bundles" title="Link to this heading">#</a></h1>
-<p>OU-XML allows HTML5/JS?CSS apps to be embedded in an iframe within a VLE page. The app needs to be provided in tthe form of a zip file and MUST contain an <code class="docutils literal notranslate"><span class="pre">index.html</span></code> file at the root.</p>
+<p>OU-XML allows HTML5/JS/CSS apps to be embedded in an IFrame within a VLE page. The app needs to be provided in tthe form of a zip file and MUST contain an <code class="docutils literal notranslate"><span class="pre">index.html</span></code> file at the root.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>```{ou-html5} path/to/html5.zip
 :width: 140
 :keep: always
@@ -341,6 +342,7 @@ document.write(`
 </pre></div>
 </div>
 <p>Currently, this does not work with Sphinx rendering to HTML.</p>
+<p>This extension also provides machinery that is used by serveral other extensions (for example, <code class="docutils literal notranslate"><span class="pre">ou-mol3d</span></code> and <code class="docutils literal notranslate"><span class="pre">ou-codestyle</span></code>).</p>
 </section>
 
     <script type="text/x-thebe-config">

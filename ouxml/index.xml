@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Item TextType="CompleteItem" SchemaVersion="2.0" id="X_ouseful-demo-sphinx_b0_x" Template="Generic_A4_Unnumbered" Rendering="VLE2 modules (learn2)" DiscussionAlias="Comment" vleglossary="auto">
+  <meta content="OUSEFUL-DEMO-SPHINX 0: Audio Items — "/>
+  <CourseCode>OUSEFUL-DEMO-SPHINX</CourseCode>
+  <CourseTitle>sphinxcontrib-ou-xml-tags</CourseTitle>
+  <ItemID/>
+  <ItemTitle>OUSEFUL-DEMO-SPHINX 0: Audio Items — </ItemTitle>
+  <FrontMatter>
+    <ByLine>Tony Hirst</ByLine>
+    <Imprint>
+        <Standard>
+            <GeneralInfo>
+                <Paragraph>This publication forms part of the Open University module OUSEFUL-DEMO-SPHINX sphinxcontrib-ou-xml-tags. [The complete list of texts which make up this module can be found at the back (where applicable)]. Details of this and other Open University modules can be obtained from the Student Registration and Enquiry Service, The Open University, PO Box 197, Milton Keynes MK7 6BJ, United Kingdom (tel. +44 (0)845 300 60 90; email general-enquiries@open.ac.uk).</Paragraph>
+                <Paragraph>Alternatively, you may visit the Open University website at www.open.ac.uk where you can learn more about the wide range of modules and packs offered at all levels by The Open University.</Paragraph>
+                <Paragraph>To purchase a selection of Open University materials visit www.ouw.co.uk, or contact Open University Worldwide, Walton Hall, Milton Keynes MK7 6AA, United Kingdom for a brochure (tel. +44 (0)1908 858793; fax +44 (0)1908 858787; email ouw-customer-services@open.ac.uk).</Paragraph>
+            </GeneralInfo>
+            <Address>
+                <AddressLine>The Open University,</AddressLine>
+                <AddressLine>Walton Hall, Milton Keynes</AddressLine>
+                <AddressLine>MK7 6AA</AddressLine>
+            </Address>
+            <FirstPublished>
+                <Paragraph>First published 2024</Paragraph>
+            </FirstPublished>
+            <Copyright>
+                <Paragraph>Unless otherwise stated, copyright © 2024 The Open University, all rights reserved.</Paragraph>
+            </Copyright>
+            <Rights>
+                <Paragraph>All rights reserved. No part of this publication may be reproduced, stored in a retrieval system, transmitted or utilised in any form or by any means, electronic, mechanical, photocopying, recording or otherwise, without written permission from the publisher or a licence from the Copyright Licensing Agency Ltd. Details of such licences (for reprographic reproduction) may be obtained from the Copyright Licensing Agency Ltd, Saffron House, 6-10 Kirby Street, London EC1N 8TS (website www.cla.co.uk).</Paragraph>
+                <Paragraph>Open University materials may also be made available in electronic formats for use by students of the University. All rights, including copyright and related rights and database rights, in electronic materials and their contents are owned by or licensed to The Open University, or otherwise used by The Open University as permitted by applicable law.</Paragraph>
+                <Paragraph>In using electronic materials and their contents you agree that your use will be solely for the purposes of following an Open University course of study or otherwise as licensed by The Open University or its assigns.</Paragraph>
+                <Paragraph>Except as permitted above you undertake not to copy, store in any medium (including electronic storage or use in a website), distribute, transmit or retransmit, broadcast, modify or show in public such electronic materials in whole or in part without the prior written consent of The Open University or in accordance with the Copyright, Designs and Patents Act 1988.</Paragraph>
+            </Rights>
+            <Edited>
+                <Paragraph>Edited and designed by The Open University.</Paragraph>
+            </Edited>
+            <Typeset>
+                <Paragraph>Typeset by The Open University</Paragraph>
+            </Typeset>
+            <Printed>
+                <Paragraph>Printed and bound in the United Kingdom by [name and address of the printer].</Paragraph>
+                <Paragraph/>
+            </Printed>
+            <ISBN>None</ISBN>
+            <Edition>None</Edition>
+        </Standard>
+    </Imprint>
+</FrontMatter>
+  <Unit>
+    <UnitID>0: Audio Items — </UnitID>
+    <UnitTitle>OUSEFUL-DEMO-SPHINX 0: Audio Items — </UnitTitle>
+    <ByLine>Tony Hirst</ByLine>
+    <Session id="audio-items-ou-audio-admonition">
+        <Title>1 Audio Items — <ComputerCode>ou-audio</ComputerCode> admonition</Title>
+        <Paragraph>Embed an audio player capable of playing a specified audio file:</Paragraph>
+        <ProgramListing><Paragraph>```{ou-audio} resources/test.mp3<br/>A caption for an audio file.<br/>```</Paragraph></ProgramListing>
+        <MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3">
+            <Caption>Figure 1.1 A caption for an audio file.</Caption>
+        </MediaContent>
+        <Paragraph>Renders to the following OU-XML:</Paragraph>
+        <ProgramListing><Paragraph> &lt;MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3"&gt;<br/>        &lt;Caption&gt;Figure 1.1 A caption for an audio file.&lt;/Caption&gt;<br/>&lt;/MediaContent&gt;</Paragraph></ProgramListing>
+        <Paragraph>As with the <ComputerCode>ou-video</ComputerCode> element, we can optionally include a caption, or a caption and description elements, by including text inside the admonition block.</Paragraph>
+        <MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3">
+            <Caption>Figure 1.2 A caption for an audio file.</Caption>
+            <Description>
+                <Paragraph>A line of description.
+                    And continuation of the line.</Paragraph>
+                <Paragraph>More description.</Paragraph>
+            </Description>
+        </MediaContent>
+        <Paragraph>Renders the the following OU-XML:</Paragraph>
+        <ProgramListing><Paragraph>&lt;MediaContent type="audio" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp3"&gt;<br/>    &lt;Caption&gt;Figure 1.2 A caption for an audio file.&lt;/Caption&gt;<br/>    &lt;Description&gt;<br/>        &lt;Paragraph&gt;A line of description.<br/>            And continuation of the line.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;More description.&lt;/Paragraph&gt;<br/>    &lt;/Description&gt;<br/>&lt;/MediaContent&gt;</Paragraph></ProgramListing>
+        <Paragraph><i>Currently, there is no native MyST admonition for embedding an audio player.</i></Paragraph>
+    </Session>
+    <Session id="embedded-video-ou-video-admonition">
+        <Title>2 Embedded video — <ComputerCode>ou-video</ComputerCode> admonition</Title>
+        <Paragraph>Embed a video player capable of playing of a specified video file:</Paragraph>
+        <ProgramListing><Paragraph>```{ou-video} resources/test.mp4<br/>A caption for a video file.<br/><br/>A line of description.<br/>And continuation of the line.<br/><br/>More description.<br/>```</Paragraph></ProgramListing>
+        <MediaContent type="video" height="" width="" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4">
+            <Caption>Figure 2.1 A caption for a video file.</Caption>
+            <Description>
+                <Paragraph>A line of description.
+                    And continuation of the line.</Paragraph>
+                <Paragraph>More description.</Paragraph>
+            </Description>
+        </MediaContent>
+        <Paragraph>Renders to the following OU-XML:</Paragraph>
+        <ProgramListing><Paragraph>&lt;MediaContent type="video" height="" width="" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_media_test.mp4"&gt;<br/>    &lt;Caption&gt;Figure 2.1 A caption for a video file.&lt;/Caption&gt;<br/>    &lt;Description&gt;<br/>        &lt;Paragraph&gt;A line of description.<br/>            And continuation of the line.&lt;/Paragraph&gt;<br/>        &lt;Paragraph&gt;More description.&lt;/Paragraph&gt;<br/>    &lt;/Description&gt;<br/>&lt;/MediaContent&gt;</Paragraph></ProgramListing>
+        <Paragraph>The block can also be empty of caption and description text. <i>If there is any text in the body of the admonition, the first line is mapped onto an OU-XML <ComputerCode>&lt;Caption&gt;</ComputerCode> element.</i></Paragraph>
+        <Paragraph>The MyST spec also lets you use a video file path in a <ComputerCode>{figure}</ComputerCode> admonition when generating HTML output, but this is not support for conversion to OU-XML. There is a also a <a href="https://github.com/sphinx-contrib/youtube"><ComputerCode>sphinx-contrib/youtube</ComputerCode></a> extension for embedding videos, but again there is no direct path for generating an appropriate OU-XML media tag.</Paragraph>
+        <Paragraph><i>TO DO: how does OU-XML recommend YouTube embeds?</i></Paragraph>
+    </Session>
+    <Session id="activities-and-exercises-ou-activity-admonition">
+        <Title>3 Activities and Exercises — <ComputerCode>ou-activity</ComputerCode> admonition</Title>
+        <Paragraph>OU-XML supports a range of styled activity types, including <i>activities</i>, <i>exercises</i>, <i>SAQ</i>s (self-assessment questions*) and <i>ITQ</i>s.</Paragraph>
+        <InternalSection id="activities">
+            <Heading>Activities</Heading>
+            <Paragraph><i>Activity rendering is broken in this extension at the moment due to a collision with the activity admonition handler that is baked into ou-theme. Ideally, that handler would be broken out into its own extension so the rest of the ou-theme can be deployed and the user given free choice over which activity handler to use.</i></Paragraph>
+            <Paragraph>Activities have two parts - the activity description, and the activity answer.</Paragraph>
+            <Paragraph>Activities are defined as:</Paragraph>
+            <ProgramListing><Paragraph>```{ou-activity} Activity 1<br/>:timing: 1 hour<br/><br/>Do something...<br/>```</Paragraph></ProgramListing>
+            <Activity>
+                <Heading>
+Activity 1                </Heading>
+                <Timing>
+1 hour                </Timing>
+                <Question><Paragraph>Do something…</Paragraph>
+            </Question></Activity>
+            <Paragraph>Activities can optionally include an answer:</Paragraph>
+            <ProgramListing><Paragraph>````{ou-activity} Activity 2<br/>Do something else...<br/><br/>```{ou-answer}<br/>Here is the second activity answer.<br/><br/>And *more* bits of answer.<br/>```<br/><br/>````</Paragraph></ProgramListing>
+            <Activity>
+                <Heading>
+Activity 2                </Heading>
+                <Question><Paragraph>Do something else…</Paragraph>
+                </Question><Answer>
+                    <Paragraph>Here is the second activity answer.</Paragraph>
+                    <Paragraph>And <i>more</i> bits of answer.</Paragraph>
+                </Answer>
+            </Activity>
+            <Paragraph>Ideally we should also have an identifier associated woth the activity, not least so we can provide a cross-reference link to the activity.</Paragraph>
+        </InternalSection>
+        <InternalSection id="exercises">
+            <Heading>Exercises</Heading>
+            <Exercise>
+                <Heading>
+Exercise 1                </Heading>
+                <Timing>
+1 hour                </Timing>
+                <Question><Paragraph>Do something…</Paragraph>
+            </Question></Exercise>
+            <Exercise>
+                <Heading>
+Exercise 2                </Heading>
+                <Timing>
+15 minutes                </Timing>
+                <Question><Paragraph>Do something else…</Paragraph>
+                </Question><Answer>
+                    <Paragraph>Here is the second activity answer.</Paragraph>
+                    <Paragraph>And <i>more</i> bits of answer.</Paragraph>
+                </Answer>
+            </Exercise>
+            <Paragraph>We can also have a discussion block:</Paragraph>
+            <Exercise>
+                <Heading>
+Exercise 3                </Heading>
+                <Timing>
+15 minutes                </Timing>
+                <Question><Paragraph>Do something else…</Paragraph>
+                </Question><Discussion>
+                    <Paragraph>Here is the third exercise discussion.</Paragraph>
+                    <Paragraph>And <i>more</i> bits of discussion.</Paragraph>
+                </Discussion>
+            </Exercise>
+            <Paragraph>Or an answer and a discussion block:</Paragraph>
+            <Exercise>
+                <Heading>
+Exercise 4                </Heading>
+                <Timing>
+1 hour                </Timing>
+                <Question><Paragraph>Do something else…</Paragraph>
+                </Question><Answer>
+                    <Paragraph>Here is the fourth exercise answer.</Paragraph>
+                    <Paragraph>And <i>more</i> bits of answer.</Paragraph>
+                </Answer>
+                <Discussion>
+                    <Paragraph>Here is the fourth exercise discussion.</Paragraph>
+                    <Paragraph>And <i>more</i> bits of discussion.</Paragraph>
+                </Discussion>
+            </Exercise>
+        </InternalSection>
+    </Session>
+    <Session id="styled-code">
+        <Title>4 Styled code</Title>
+        <Paragraph>The OU-XML code rendering does not support style code by default, so we have to use a workaround when rendering styled code to the VLE.</Paragraph>
+        <Paragraph>The <ComputerCode>{ou-codestyle}</ComputerCode> admonition block allows us to individually style code blocks using <ComputerCode>prism.js</ComputerCode>:</Paragraph>
+        <MediaContent type="html5" height="400" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html0.zip" id="b96b5322ceb74bb3a55b"/>
+        <Paragraph>Pass the language name in to define the language pack styling.</Paragraph>
+        <Paragraph>The result is an HTML5 zipped bundle that renders the styled program listing in an iframe.</Paragraph>
+        <Paragraph>Here’s an example of the generated OU-XML:</Paragraph>
+        <ProgramListing><Paragraph>&lt;MediaContent type="html5" height="400" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html0.zip" id="cb78cee0c59f474a98a0"/&gt;</Paragraph></ProgramListing>
+        <Paragraph>The <ComputerCode>.zip</ComputerCode> file and its contents are automatically generated from based on the contents of the admonition block.</Paragraph>
+    </Session>
+    <Session id="embedding-html5-bundles">
+        <Title>5 Embedding HTML5 bundles</Title>
+        <Paragraph>OU-XML allows HTML5/JS/CSS apps to be embedded in an IFrame within a VLE page. The app needs to be provided in tthe form of a zip file and MUST contain an <ComputerCode>index.html</ComputerCode> file at the root.</Paragraph>
+        <ProgramListing><Paragraph><br/>```{ou-html5} path/to/html5.zip<br/>:width: 140<br/>:keep: always<br/>```</Paragraph></ProgramListing>
+        <Paragraph>Currently, this does not work with Sphinx rendering to HTML.</Paragraph>
+        <Paragraph>This extension also provides machinery that is used by serveral other extensions (for example, <ComputerCode>ou-mol3d</ComputerCode> and <ComputerCode>ou-codestyle</ComputerCode>).</Paragraph>
+    </Session>
+    <Session id="visualising-molecules-ou-mol3d">
+        <Title>6 Visualising molecules — <ComputerCode>ou_mol3d</ComputerCode></Title>
+        <Paragraph>The <a href="https://3dmol.csb.pitt.edu/"><ComputerCode>3dmol.js</ComputerCode></a> packages provides an interactive 3D viewer for a wide range of molecules.</Paragraph>
+        <Paragraph>We can create a simple Sphinx admonition handler that will accept a molecule query code (see the official docs for more info on this) and then render the molecule with desired styling.</Paragraph>
+        <Paragraph>We can then use a markdown admonition such as the following to generate an interactive widget that lets us interactively visualise the molecule:</Paragraph>
+        <ProgramListing><Paragraph>```{ou-mol3d} pdb:1ubq<br/>:style: '{"sphere":{"radius":"0.5"}}'<br/>```</Paragraph></ProgramListing>
+        <Paragraph>to embed an interactive JavaScript powered viewer such as the following (click then drag in the widget below to rotate the rendered molecule; mouse/touchpad controls should also let you zoom in and out):</Paragraph>
+        <MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="d8f428cbda1342658cb6"/>
+        <Paragraph><i>Note that the style information must be presented as a quoted string and take the form of a valid JSON string.</i></Paragraph>
+        <Paragraph>Renders to the following OU-XML:</Paragraph>
+        <ProgramListing><Paragraph>&lt;MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="f06b147c75474dcdb6f5"/&gt;</Paragraph></ProgramListing>
+        <Paragraph>The <ComputerCode>.zip</ComputerCode> file and its contents are automatically generated based on the contents of the admonition block.</Paragraph>
+        <Paragraph><i>It would perhaps be usedul to try to follow the model of embedded audio and video players and also support captions, additional description text, etc. It may also make sense to automatically number this sort of embedded asset as a figure, or perhaps create an “Interactive Figure” type and associated numbering scheme?</i></Paragraph>
+    </Session>
+    <Session id="generating-ou-xml">
+        <Title>7 Generating OU-XML</Title>
+        <Paragraph>Generating OU-XML is two part process and requires the additional installation of</Paragraph>
+        <Paragraph>The first step is to use Jupyter Book tooling to generate a Sphinx XML version of the Jupyter Book, as defined by the <ComputerCode>_toc.yml</ComputerCode> and <ComputerCode>_config.yml</ComputerCode> files:</Paragraph>
+        <Paragraph><ComputerCode>jb build PATH_TO_BOOK_SRC --builder custom --custom-builder xml</ComputerCode></Paragraph>
+        <Paragraph>This generates XML files in the default <ComputerCode>_build/xml</ComputerCode> directory.</Paragraph>
+        <Paragraph>The second step is to use the <ComputerCode>ouseful_obt</ComputerCode> command-line tool from the <a href="https://github.com/innovationOUtside/ou-xml-validator/"><ComputerCode>ou-xml-validator</ComputerCode> package</a>:</Paragraph>
+        <Paragraph><ComputerCode>pip install git+https://github.com/innovationOUtside/ou-xml-validator.git</ComputerCode></Paragraph>
+        <Paragraph><ComputerCode>ouseful_obt PATH_TO_BOOK_SRC</ComputerCode></Paragraph>
+        <Paragraph>*Note that this currently requires several <ComputerCode>ou</ComputerCode> parameters to be set, otherwise an error will be raised.</Paragraph>
+        <Paragraph>Example <ComputerCode>ou</ComputerCode> settings in <ComputerCode>_config.yml</ComputerCode>:</Paragraph>
+        <ProgramListing><Paragraph>ou:</Paragraph><Paragraph>  module_code: OUSEFUL-DEMO-SPHINX</Paragraph><Paragraph>  module_title: sphinxcontrib-ou-xml-tags</Paragraph><Paragraph>  block: 0</Paragraph><Paragraph>  presentation: X</Paragraph><Paragraph>  first_published: 2024</Paragraph><Paragraph>  isbn:</Paragraph><Paragraph>  edition:</Paragraph><Paragraph>  block_title: Examples</Paragraph><Paragraph>  image_path_prefix: https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/</Paragraph><Paragraph>  media_path_prefix: https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/</Paragraph><Paragraph>  codestyle: false</Paragraph><Paragraph>  codelang:</Paragraph><Paragraph>  codesnippet_theme: light # light | dark</Paragraph><Paragraph>  validate: true # validate generated OU-XML in toolchain</Paragraph><Paragraph></Paragraph></ProgramListing>
+        <Paragraph>Generated OU-XML content in the <ComputerCode>_build/ouxml</ComputerCode> directory can then be validated against an OU-XML schema by running the command:</Paragraph>
+        <Paragraph><ComputerCode>ou_xml_validator validate path/to/testme.xml</ComputerCode></Paragraph>
+        <Paragraph>See an example of the XML generated for this documentation <UnknownTag>reference</UnknownTag>.</Paragraph>
+    </Session>
+    <BackMatter/>
+  </Unit>
+</Item>
