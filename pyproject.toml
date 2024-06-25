@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sphinxcontrib-ou-media"
-version = "0.0.3"
+version = "0.0.4"
 description = "Allows embedding of media elements in sphinx in OU production workflows."
 authors = [
     {name = "Tony Hirst", email = "tony.hirst@gmail.com"},
 ]
 requires-python = ">=3.7.0"
-dependencies = ["sphinx", "py3Dmol"]
+dependencies = ["sphinx", "py3Dmol", "ou-book-theme"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Framework :: Sphinx :: Extension",

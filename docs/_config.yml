@@ -1,0 +1,36 @@
+title: sphinxcontrib-ou-xml-tags examples
+author: Tony Hirst
+
+lang: en
+
+only_build_toc_files: true
+
+sphinx:
+  extra_extensions:
+    - sphinxcontrib.ou-video
+    - sphinxcontrib.ou-audio
+    - sphinxcontrib.ou-html5
+    - sphinxcontrib.ou-mol3d
+    - sphinxcontrib.ou-codestyle
+    - sphinxcontrib.ou-activities
+    - ou_book_theme
+  
+  config:
+    myst_heading_anchors: 3
+    numfig: true
+    numfig_format: {'figure':'Figure %s'}
+    numfig_secnum_depth: 1 #eg 0:1 1:2.1 2:3.2.1
+    html_theme: ou_book_theme
+parse:
+  myst_enable_extensions:
+    - colon_fenceparse
+    - amsmath
+    - dollarmath
+
+repository:
+  url                       : https://github.com/innovationOUtside/sphinxcontrib-ou-xml-tags # Online location of your book
+  path_to_book              : docs  # Optional path to your book, relative to the repository root
+  branch                    : main
+
+#ou:
+#    codestyle: true

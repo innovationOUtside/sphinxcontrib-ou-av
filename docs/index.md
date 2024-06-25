@@ -1,6 +1,4 @@
-# sphinxcontrib-ou-xml-tags
-
-*Needs repo name change*
+# Using `sphinxcontrib-ou-xml-tags`
 
 Sphinx is a document publishing framework for converting markdown based source documents to a wide range of output formats, including HTML and XML. Content rendered to Sphinx-generated XML can then be further transformed to other flavouts of XML, such as OU-XML. Sphinx is used as part of the *Jupyter Book* publishing framework.
 
@@ -39,20 +37,3 @@ sphinx:
 ```
 
 The `ou_activity` extension also requires: `pip install ou-book-theme`.
-
-## BUILD and INSTALL
-
-`python3 -m build`
-
-Install as:
-
-`python3 -m pip install .`
-
-## HTML packages
-
-```bash
-cd sphinxcontrib_ou_media/packages/shinylite-py
-zip -r -X "../../../dist/shinylite-py-01.zip" .
-cd ../..
-```
-cd target_folder; zip -r ../zipped_dir.zip *
