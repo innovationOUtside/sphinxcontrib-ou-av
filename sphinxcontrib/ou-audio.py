@@ -187,9 +187,22 @@ def visit_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:
         html += html_source.format(src, type_)
 
     # add the alternative message
-    #html += node["alt"]
+    # html += node["alt"]
 
-    translator.body.append(html)
+    # Handle caption if present
+    caption = node.first_child_matching_class(nodes.caption)
+    if caption is not None:
+        caption_node = node[caption]
+        translator.body.append("<figure>")
+        translator.body.append(html)
+        translator.body.append("<figcaption>")
+        translator.dispatch_visit(caption_node)
+        translator.body.append("</figcaption>")
+        translator.body.append("</figure>")
+    else:
+        translator.body.append(html)
+
+    # translator.body.append(html)
 
 
 def depart_ou_audio_html(translator: SphinxTranslator, node: ou_audio) -> None:

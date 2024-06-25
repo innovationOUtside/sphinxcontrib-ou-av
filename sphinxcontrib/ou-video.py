@@ -194,13 +194,27 @@ def visit_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
 
     # add the alternative message
     # html += node["alt"]
+    html += "</video>"
 
-    translator.body.append(html)
+    # Handle caption if present
+    caption = node.first_child_matching_class(nodes.caption)
+    if caption is not None:
+        caption_node = node[caption]
+        translator.body.append("<figure>")
+        translator.body.append(html)
+        translator.body.append("<figcaption>")
+        translator.dispatch_visit(caption_node)
+        translator.body.append("</figcaption>")
+        translator.body.append("</figure>")
+    else:
+        translator.body.append(html)
+
+    #translator.body.append(html)
 
 
 def depart_ou_video_html(translator: SphinxTranslator, node: ou_video) -> None:
     """Exit of the html video node."""
-    translator.body.append("</video>")
+    pass
 
 
 def visit_ou_video_unsupported(translator: SphinxTranslator, node: ou_video) -> None:
