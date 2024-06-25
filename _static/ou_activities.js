@@ -20,10 +20,14 @@ function ou_activitySetup() {
 document.addEventListener("DOMContentLoaded", () => {
   ou_activitySetup();
 
-  // Initially hide all answer contents
-  document
-    .querySelectorAll(".ou-activity-answer-content")
-    .forEach((content) => {
+  // Initially hide all answer contents and set button text to "Show answer"
+  document.querySelectorAll(".ou-activity-answer").forEach((answer) => {
+    const content = answer.querySelector(".ou-activity-answer-content");
+    const toggle = answer.querySelector(".ou-toggle");
+
+    if (content && toggle) {
       content.classList.add("ou-hidden");
-    });
+      toggle.classList.add("ou-toggle-hidden");
+    }
+  });
 });

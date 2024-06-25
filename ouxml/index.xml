@@ -194,7 +194,7 @@ Exercise 4                </Heading>
         <Title>4 Styled code</Title>
         <Paragraph>The OU-XML code rendering does not support style code by default, so we have to use a workaround when rendering styled code to the VLE.</Paragraph>
         <Paragraph>The <ComputerCode>{ou-codestyle}</ComputerCode> admonition block allows us to individually style code blocks using <ComputerCode>prism.js</ComputerCode> and is rendered into an HTML page as follows:</Paragraph>
-        <MediaContent type="html5" height="400" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html0.zip" id="fe249e43ed5742d6891c"/>
+        <MediaContent type="html5" height="400" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html0.zip" id="c2b25e21ca0c4a6280be"/>
         <Paragraph>Pass the language name in to define the language pack styling.</Paragraph>
         <Paragraph>The result is an HTML5 zipped bundle that renders the styled program listing in an iframe.</Paragraph>
         <Paragraph>Here’s an example of the generated OU-XML:</Paragraph>
@@ -215,7 +215,7 @@ Exercise 4                </Heading>
         <Paragraph>We can then use a markdown admonition such as the following to generate an interactive widget that lets us interactively visualise the molecule:</Paragraph>
         <ProgramListing><Paragraph>```{ou-mol3d} pdb:1ubq<br/>:style: '{"sphere":{"radius":"0.5"}}'<br/>```</Paragraph></ProgramListing>
         <Paragraph>to embed an interactive JavaScript powered viewer such as the following (click then drag in the widget below to rotate the rendered molecule; mouse/touchpad controls should also let you zoom in and out):</Paragraph>
-        <MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="d7903ef312b74dd18397"/>
+        <MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="fe287431adad45c78211"/>
         <Paragraph><i>Note that the style information must be presented as a quoted string and take the form of a valid JSON string.</i></Paragraph>
         <Paragraph>The admonition block is converted to the following OU-XML:</Paragraph>
         <ProgramListing><Paragraph>&lt;MediaContent type="html5" height="500" width="600" src="https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip" id="f06b147c75474dcdb6f5"/&gt;</Paragraph></ProgramListing>
