@@ -1,4 +1,4 @@
-/* Via Mark Hall, ou-book-theme */
+/* Imported via Mark Hall, ou-book-theme; copy here for reference. */
 
 :root {
     --ou-color-activity: 98, 191, 178;
@@ -49,7 +49,7 @@
     > :last-child {
         margin-bottom: 0;
     }
-
+/*
     .ou-activity-answer {
         .ou-toggle {
             margin-bottom: 1.5rem;
@@ -79,4 +79,25 @@
             }
         }
     }
+}
+*/
+
+.ou-activity-answer-content {
+  display: none;
+}
+
+.ou-activity-answer-content.ou-hidden {
+  display: none;
+}
+
+.ou-toggle .ou-toggle-hide {
+  display: none;
+}
+
+.ou-toggle.ou-toggle-hidden .ou-toggle-show {
+  display: none;
+}
+
+.ou-toggle.ou-toggle-hidden .ou-toggle-hide {
+  display: inline;
 }

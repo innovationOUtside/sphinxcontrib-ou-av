@@ -205,7 +205,7 @@ class ActivityAnswerHtmlTransform(SphinxPostTransform):
             newnode += nodes.raw("", "<hr/>", format="html")
             newnode += nodes.raw(
                 "",
-                '<button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-show">Show answer</span><span class="ou-toggle-hide">Hide answer</span></button>',  # noqa: E501
+                '<button class="sd-btn sd-btn-info ou-toggle ou-toggle-hidden"><span class="ou-toggle-hide">Hide answer</span><span class="ou-toggle-show">Show answer</span></button>',  # noqa: E501
                 format="html",
             )
             content_container = create_component(
