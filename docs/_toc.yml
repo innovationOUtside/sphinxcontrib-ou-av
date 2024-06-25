@@ -8,3 +8,4 @@ chapters:
 - file: ou_codestyle
 - file: ou_html5
 - file: ou_mol3d
+- file: generating_ouxml

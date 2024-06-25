@@ -32,5 +32,22 @@ repository:
   path_to_book              : docs  # Optional path to your book, relative to the repository root
   branch                    : main
 
-#ou:
-#    codestyle: true
+
+
+ou:
+  module_code: OUSEFUL-DEMO-SPHINX
+  module_title: sphinxcontrib-ou-xml-tags
+  block: 0
+  presentation: X
+  first_published: 2024
+  isbn:
+  edition:
+  block_title: Examples
+  image_path_prefix: https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/
+  media_path_prefix: https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/
+  #image_path_prefix: https://openuniv.sharepoint.com/sites/modules–shared/test_render_site/Shared%20Documents/
+  #media_path_prefix: https://openuniv.sharepoint.com/sites/modules–shared/test_render_site/Shared%20Documents/
+  #codestyle: true
+  codelang:
+  codesnippet_theme: light # light | dark
+  validate: true # validate generated OU-XML in toolchain

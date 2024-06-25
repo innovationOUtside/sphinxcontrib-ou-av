@@ -6,12 +6,14 @@ The `sphinxcontrib-ou-xml-tags` supports a range of markdown admonition blocks t
 
 The package bundles several Sphinx extensions:
 
-- `ou-audio`: generate approptiate tags for an embedded audio player; [example](https://opencomputinglab.github.io/reusable-content-example/media_items.html)
-- `ou-video`: generate approptiate tags for an embedded video player; [example](https://opencomputinglab.github.io/reusable-content-example/media_items.html)
+- `ou-audio`: generate approptiate tags for an embedded audio player;
+- `ou-video`: generate approptiate tags for an embedded video player;
 - `ou-activities`: generate appropriate tags for activities;
-- `ou-codestyle`: generate appropriate tags for language-sensitives styled code; [example]()
-- `ou-mol3d`: generate appropriate tags for embedding a mol3d interactive visualisation; [example]()
-- `ou-html5`: generate appropriate tags and a zipped HTML5 bundle for deplying an HTML5 asset (e.g. an embedded HTML5 app). [example]()
+- `ou-codestyle`: generate appropriate tags for language-sensitives styled code;
+- `ou-mol3d`: generate appropriate tags for embedding a mol3d interactive visualisation;
+- `ou-html5`: generate appropriate tags and a zipped HTML5 bundle for deplying an HTML5 asset (e.g. an embedded HTML5 app).
+
+For more examples and discussion on how to use these extensions as part of an OU workflow, see [`reusable-content-example`](https://opencomputinglab.github.io/reusable-content-example/media_items.html).
 
 ## Usage
 

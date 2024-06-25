@@ -1,6 +1,6 @@
 # Embedding HTML5 bundles
 
-OU-XML allows HTML5/JS?CSS apps to be embedded in an iframe within a VLE page. The app needs to be provided in tthe form of a zip file and MUST contain an `index.html` file at the root.
+OU-XML allows HTML5/JS/CSS apps to be embedded in an IFrame within a VLE page. The app needs to be provided in tthe form of a zip file and MUST contain an `index.html` file at the root.
 
 ````text
 
@@ -11,3 +11,5 @@ OU-XML allows HTML5/JS?CSS apps to be embedded in an iframe within a VLE page. T
 ````
 
 Currently, this does not work with Sphinx rendering to HTML.
+
+This extension also provides machinery that is used by serveral other extensions (for example, `ou-mol3d` and `ou-codestyle`).
