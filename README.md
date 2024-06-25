@@ -2,7 +2,9 @@
 
 *Needs repo name change*
 
-Sphinx is a document publishing framework for converting markdown based source documents to a wide range of output formats, including HTML and XML. Content rendered to Sphinx-generated XML can then be further transformed to other flavouts of XML, such as OU-XML. Sphinx is used as part of the *Jupyter Book* publishing framework.
+Sphinx is a document publishing framework for converting markdown based source documents to a wide range of output formats, including HTML and XML.
+
+Content rendered to Sphinx-generated XML can be further transformed to other flavours of XML, such as OU-XML.
 
 Sphinx is used as part of the *Jupyter Book* publishing framework.
 
