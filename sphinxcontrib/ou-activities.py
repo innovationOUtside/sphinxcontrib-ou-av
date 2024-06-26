@@ -2,6 +2,7 @@
 
 Originally based on https://github.com/sphinx-contrib/video/
 """
+
 from sphinx.transforms.post_transforms import SphinxPostTransform
 
 # TO DO - HTML outputs for exercise and activity
@@ -218,6 +219,7 @@ class ActivityAnswerHtmlTransform(SphinxPostTransform):
 
 
 # TO DO - at the moment we treat exercise and activity the same way
+
 
 class ActivityHtmlTransform(SphinxPostTransform):
     """Transform activity containers into the HTML specific AST structures."""
