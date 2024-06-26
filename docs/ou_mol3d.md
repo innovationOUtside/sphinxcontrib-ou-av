@@ -1,5 +1,4 @@
-
-## Visualising molecules — `ou_mol3d`
+# Visualising molecules — `ou_mol3d`
 
 The [`3dmol.js`](https://3dmol.csb.pitt.edu/) packages provides an interactive 3D viewer for a wide range of molecules.
 
