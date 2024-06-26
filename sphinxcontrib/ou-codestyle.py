@@ -255,7 +255,8 @@ def visit_ou_codestyle_html(translator: SphinxTranslator, node: ou_codestyle) ->
         f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if k in node and node[k]
     ]
     html: str = f"<iframe {' '.join(attr)}>"
-
+    # TO DO - this is currently a hack
+    html = html.replace("_tmp", "")
     translator.body.append(html)
 
 
