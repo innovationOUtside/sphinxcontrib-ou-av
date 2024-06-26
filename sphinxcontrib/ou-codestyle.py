@@ -22,6 +22,8 @@ from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective, SphinxTranslator
 from sphinx.util.osutil import copyfile
 
+from sphinxcontrib_ou_media.utils import handle_css_js_assets
+
 __author__ = "Raphael Massabot & Tony Hirst"
 __version__ = "0.0.2"
 
@@ -254,9 +256,10 @@ def visit_ou_codestyle_html(translator: SphinxTranslator, node: ou_codestyle) ->
     attr: List[str] = [
         f'{k}="{node[k]}"' for k in SUPPORTED_OPTIONS if k in node and node[k]
     ]
+    attr.append('name="expandable-code-iframe"')
     html: str = f"<iframe {' '.join(attr)}>"
     # TO DO - this is currently a hack
-    html = html.replace("_tmp", "")
+    html = html.replace("_tmp/", "./")
     translator.body.append(html)
 
 
@@ -286,6 +289,9 @@ def setup(app: Sphinx) -> Dict[str, bool]:
         text=(visit_ou_codestyle_unsupported, None),
     )
     app.add_directive("ou-codestyle", codestyle)
+
+    # Pass in the stub filename used in static/js/STUB.js etc
+    handle_css_js_assets(app, "ou_codestyle")
 
     return {
         "parallel_read_safe": True,

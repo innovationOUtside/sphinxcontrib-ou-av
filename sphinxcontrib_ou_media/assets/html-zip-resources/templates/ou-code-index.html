@@ -53,10 +53,18 @@
         // Set the height.
         iframe.height = totalHeight;
     }}
-
     window.onload = function () {{
+        try {{
+            if (window.parent && typeof window.parent.resizeExpandableCodeIframes === 'function') {{
+                window.parent.resizeExpandableCodeIframes();
+            }}
+        }} catch (error) {{
+    }}
+    try {{
         // This function will be called when the iframe's content has finished loading.
         resize_iframe();
+    }} catch (error) {{}}
+
     }};
     </script>
 </head>
