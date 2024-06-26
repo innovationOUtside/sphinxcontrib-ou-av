@@ -46,16 +46,23 @@ def handle_css_js_assets(app, stub):
     css_file = f"{stub}.css"
 
     # Copy JavaScript file
-    copy_asset(
-        os.path.join(source_dir, "js", js_file),
-        build_dir,
-        #app.builder,
-    )
+
+    _js_file = os.path.join(source_dir, "js", js_file)
+    if os.path.exists(_js_file):
+        copy_asset(
+            _js_file,
+            build_dir,
+            # app.builder,
+        )
+
+    _css_file = os.path.join(source_dir, "css", css_file)
     # Copy CSS file
-    copy_asset(
-        os.path.join(source_dir, "css", css_file),
-        build_dir,
-        #app.builder,
-    )
+    if os.path.exists(_css_file):
+        copy_asset(
+            _css_file,
+            build_dir,
+            # app.builder,
+        )
+
     app.add_css_file(css_file)
     app.add_js_file(js_file)
