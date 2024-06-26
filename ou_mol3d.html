@@ -337,14 +337,15 @@ document.write(`
 <h1>Visualising molecules — <code class="docutils literal notranslate"><span class="pre">ou_mol3d</span></code><a class="headerlink" href="#visualising-molecules-ou-mol3d" title="Link to this heading">#</a></h1>
 <p>The <a class="reference external" href="https://3dmol.csb.pitt.edu/"><code class="docutils literal notranslate"><span class="pre">3dmol.js</span></code></a> packages provides an interactive 3D viewer for a wide range of molecules.</p>
 <p>We can create a simple Sphinx admonition handler that will accept a molecule query code (see the official docs for more info on this) and then render the molecule with desired styling.</p>
-<p>We can then use a markdown admonition such as the following to generate an interactive widget that lets us interactively visualise the molecule:</p>
+<p>We can then use a markdown admonition such as the following to generate an interactive <a class="reference external" href="https://3dmol.org/doc/index.html"><code class="docutils literal notranslate"><span class="pre">3dmol.js</span></code></a> widget that lets us interactively visualise the molecule:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>```{ou-mol3d} pdb:1ubq
 :style: &#39;{&quot;sphere&quot;:{&quot;radius&quot;:&quot;0.5&quot;}}&#39;
 ```
 </pre></div>
 </div>
 <p>to embed an interactive JavaScript powered viewer such as the following (click then drag in the widget below to rotate the rendered molecule; mouse/touchpad controls should also let you zoom in and out):</p>
-<iframe height="500" width="800" query="pdb:1ubq" src="pdb_1ubq_generated.html"></iframe><p><em>Note that the style information must be presented as a quoted string and take the form of a valid JSON string.</em></p>
+<iframe height="500" width="800" query="pdb:1ubq" src="pdb_1ubq_generated.html"></iframe><p>Another iteration of this might allow us to enter a common compound name etc. and automatically look-up the appropriate compound code and render the molecule, etc. (See for example <a class="reference external" href="https://opencomputinglab.github.io/SubjectMatterNotebooks/chemistry/overview.html">here</a> although some of the examples may have rotted by now…<em>Time for an update over there…—Ed.</em>)</p>
+<p><em>Note that the style information must be presented as a quoted string and take the form of a valid JSON string.</em></p>
 <p>The admonition block is converted to the following OU-XML:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;MediaContent</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;html5&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;500&quot;</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;600&quot;</span><span class="w"> </span><span class="na">src=</span><span class="s">&quot;https://raw.githubusercontent.com/innovationoutside/sphinxcontrib-ou-xml-tags/main/vletmp/ouseful-demo-sphinx_b0_p1_x_html1.zip&quot;</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;f06b147c75474dcdb6f5&quot;</span><span class="nt">/&gt;</span>
 </pre></div>
