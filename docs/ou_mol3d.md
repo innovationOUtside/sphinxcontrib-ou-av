@@ -5,7 +5,7 @@ The [`3dmol.js`](https://3dmol.csb.pitt.edu/) packages provides an interactive 3
 
 We can create a simple Sphinx admonition handler that will accept a molecule query code (see the official docs for more info on this) and then render the molecule with desired styling.
 
-We can then use a markdown admonition such as the following to generate an interactive widget that lets us interactively visualise the molecule:
+We can then use a markdown admonition such as the following to generate an interactive [`3dmol.js`](https://3dmol.org/doc/index.html) widget that lets us interactively visualise the molecule:
 
 ````text
 ```{ou-mol3d} pdb:1ubq
@@ -21,6 +21,8 @@ to embed an interactive JavaScript powered viewer such as the following (click t
 :width: 800
 :background: '0x222222'
 ```
+
+Another iteration of this might allow us to enter a common compound name etc. and automatically look-up the appropriate compound code and render the molecule, etc. (See for example [here](https://opencomputinglab.github.io/SubjectMatterNotebooks/chemistry/overview.html) although some of the examples may have rotted by now...*Time for an update over there...—Ed.*)
 
 *Note that the style information must be presented as a quoted string and take the form of a valid JSON string.*
 
